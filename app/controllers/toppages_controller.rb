@@ -1,4 +1,6 @@
 class ToppagesController < ApplicationController
+ before_action :check_search_validate, only: [:search]
+  
   include ToppagesHelper
   
   def index
@@ -12,15 +14,7 @@ class ToppagesController < ApplicationController
       options.affiliate_id = rakuten_ecs_yml[:affiliate_id] if rakuten_ecs_yml[:affiliate_id].present?
     end
 
-    # ARGV[0]で実行時の1つめのパラメータを取得、存在しない場合は'Ruby'を設定
-    search_word = params[:search_word][:title]
-    if !search_validate(search_word)
-      flash.now[:danger] = "検索ワードを入力してください"
-      redirect_to root_url
-      return
-    end
-
-    keyword = search_word || !search_word.empty?  || '漫画 ワンピース'
+    keyword = params[:search_word][:title]
     puts "keyword ======> #{keyword}"
 
     # rakuten_web_serviceの使用法に乗っ取りHTTPリクエストを送ってデータを取得
@@ -65,4 +59,13 @@ class ToppagesController < ApplicationController
       p item.get('Offers/Offer/OfferListing/Price/Amount') #値引き前(情報取得時点の)価格を¥表示)
     end
   end
+  
+  private
+  def check_search_validate()
+    search_word = params[:search_word][:title]
+    if search_word == ""
+      flash[:danger] = "検索ワードを入力してください"
+      redirect_to root_url
+    end
+  end  
 end
