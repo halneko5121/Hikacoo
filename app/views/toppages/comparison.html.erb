@@ -1,5 +1,21 @@
 <h2 class="mt-4 pb-4 border-bottom">商品比較</h2>
 
+<h3 class="mt-4 pb-4 border-bottom">amazon</h2>
+<% if @amazon_item == nil %>
+  <p>該当する商品は見つかりませんでした。</p>
+<% else %>
+  <div class="row">
+    <aside class="col-sm-4">
+      <img class="rounded img-fluid" src="<%= @amazon_item[:image_url] %>" alt="">
+    </aside>
+    <div class="col-sm-8">
+      <p><%= @amazon_item[:name] %></p>
+      <p><%= @amazon_item[:price] %></p>
+      <p><a href="<%= @amazon_item[:shop_url] %>" class="btn btn-primary">ショップで確認</a></p>
+    </div>
+  </div>
+<% end %>
+
 <h3 class="mt-4 pb-4 border-bottom">楽天</h2>
 <% if @rakuten_item.empty? %>
   <p>該当する商品は見つかりませんでした。</p>
@@ -17,21 +33,3 @@
     </div>
   <% end %>    
 <% end %>    
-
-<h3 class="mt-4 pb-4 border-bottom">amazon</h2>
-<% if @rakuten_item.empty? %>
-  <p>該当する商品は見つかりませんでした。</p>
-<% else %>
-  <% @amazon_item.each do |item| %>
-    <div class="row">
-      <aside class="col-sm-4">
-        <img class="rounded img-fluid" src="<%= item[:image_url] %>" alt="">
-      </aside>
-      <div class="col-sm-8">
-        <p><%= item[:name] %></p>
-        <p><%= item[:price] %></p>
-        <p><a href="<%= item[:shop_url] %>" class="btn btn-primary">ショップで確認</a></p>
-      </div>
-    </div>
-  <% end %>    
-<% end %>

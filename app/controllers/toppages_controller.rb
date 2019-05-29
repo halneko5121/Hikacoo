@@ -34,9 +34,8 @@ class ToppagesController < ApplicationController
   
   def comparison
     item = params[:title]
-    
     @rakuten_item = search_rakuten(item, 1)
-    @amazon_item = search_amazon(item, 1)
+    @amazon_item = Item.find_by(name: item)
   end
   
   private
