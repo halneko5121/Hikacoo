@@ -3,7 +3,6 @@ module ToppagesHelper
   def search_rakuten(keyword, count)
     init_rakuten()
     
-    # rakuten_web_serviceの使用法に乗っ取りHTTPリクエストを送ってデータを取得
     array_items = Array.new
     items = RakutenWebService::Ichiba::Item.search(keyword: keyword)
     items.first(count).each do |item|
