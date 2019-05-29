@@ -19,7 +19,7 @@ class ToppagesController < ApplicationController
     # 検索
     keyword = params[:search_word][:title]
     puts "keyword ======> #{keyword}"
-    @items = search_rakuten(keyword, 10) # search_amazon(keyword)
+    @items = search_amazon(keyword, 10) # search_amazon(keyword)
     @items.each do |item|
       # 存在しなければレコード保存
       if Item.find_by(name: item[:name]) == nil
@@ -34,9 +34,9 @@ class ToppagesController < ApplicationController
   
   def comparison
     item = params[:title]
-    puts "=============="
-    p item
-    puts "=============="
+    
+    @rakuten_item = search_rakuten(item, 1)
+    @amazon_item = search_amazon(item, 1)
   end
   
   private
