@@ -1,12 +1,12 @@
 module ToppagesHelper
 
-  def search_rakuten(keyword)
+  def search_rakuten(keyword, count)
     init_rakuten()
     
     # rakuten_web_serviceの使用法に乗っ取りHTTPリクエストを送ってデータを取得
     array_items = Array.new
     items = RakutenWebService::Ichiba::Item.search(keyword: keyword)
-    items.first(10).each do |item|
+    items.first(count).each do |item|
       item_value = Hash.new
       item_value[:image_url] = item["mediumImageUrls"][0]
       item_value[:name] = item["itemName"]
@@ -18,7 +18,7 @@ module ToppagesHelper
     return array_items
   end
 
-  def search_amazon(keyword)
+  def search_amazon(keyword, count)
     init_amazon()
     res = Amazon::Ecs.item_search(
       keyword,
@@ -27,7 +27,7 @@ module ToppagesHelper
     )
 
     array_items = Array.new
-    res.items.first(10).each do |item|
+    res.items.first(count).each do |item|
       item_value = Hash.new
       item_value[:image_url] = item.get("MediumImage/URL")
       item_value[:name] = item.get("ItemAttributes/Title")

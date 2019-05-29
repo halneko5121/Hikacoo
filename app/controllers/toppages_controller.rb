@@ -19,7 +19,7 @@ class ToppagesController < ApplicationController
     # 検索
     keyword = params[:search_word][:title]
     puts "keyword ======> #{keyword}"
-    @items = search_rakuten(keyword) # search_amazon(keyword)
+    @items = search_rakuten(keyword, 10) # search_amazon(keyword)
     @items.each do |item|
       # 存在しなければレコード保存
       if Item.find_by(name: item[:name]) == nil
