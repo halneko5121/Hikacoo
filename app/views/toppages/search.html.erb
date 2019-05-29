@@ -7,7 +7,9 @@
     <div class="col-sm-8">
       <p><%= item[:name] %></p>
       <p><%= item[:price] %></p>
-      <p><a href="<%= item[:shop_url] %>" class="btn btn-primary">ショップで確認</a></p>
+      <%= form_with(url: comparison_path, scope: :comparison_item, local: true) do |f| %>
+        <%= f.submit '商品比較', class: "btn btn-primary" %>
+      <% end %>
     </div>
   </div>
 <% end %>    
