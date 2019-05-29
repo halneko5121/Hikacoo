@@ -22,16 +22,18 @@ module ToppagesHelper
     init_amazon()
     res = Amazon::Ecs.item_search(
       keyword,
-      response_group: 'ItemAttributes, Images, Offers',
+      response_group: 'ItemAttributes, Images, OfferSummary',
       country:  'jp',
     )
 
     array_items = Array.new
     res.items.first(count).each do |item|
+#      puts item.get_element('OfferSummary')
       item_value = Hash.new
       item_value[:image_url] = item.get("MediumImage/URL")
       item_value[:name] = item.get("ItemAttributes/Title")
-      item_value[:price] = item.get('Offers/Offer/OfferListing/Price/Amount')
+#      item_value[:price] = item.get('Offers/Offer/OfferListing/Price/Amount')
+      item_value[:price] = item.get('OfferSummary/LowestNewPrice/Amount')
       item_value[:shop_url] = item.get("DetailPageURL")
       array_items.push(item_value)
     end
