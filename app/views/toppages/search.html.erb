@@ -1,6 +1,5 @@
 <h2 class="mt-4 pb-4 border-bottom">検索結果</h2>
-<% # 取得したデータを10件まで表示 %>
-<% @items.first(10).each do |item| %>
+<% @items.each do |item| %>
   <div class="row">
     <aside class="col-sm-4">
       <img class="rounded img-fluid" src="<%= item[:image_url] %>" alt="">
