@@ -11,9 +11,7 @@ class ToppagesController < ApplicationController
     # 何かしら入っていたら全削除
     items = Item.all
     if !items.empty?
-      items.each do |item|
-        item.destroy
-      end
+      Item.delete_all
     end
 
     # 検索
