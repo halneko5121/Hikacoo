@@ -32,6 +32,13 @@ class ToppagesController < ApplicationController
     end
   end
   
+  def comparison
+    item = params[:title]
+    puts "=============="
+    p item
+    puts "=============="
+  end
+  
   private
   def check_search_validate()
     search_word = params[:search_word][:title]
