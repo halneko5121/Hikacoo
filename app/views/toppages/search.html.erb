@@ -3,7 +3,7 @@
 <% @items.first(10).each do |item| %>
   <div class="row">
     <aside class="col-sm-4">
-      <img class="rounded img-fluid" src="<%= item[:medium_image_urls] %>" alt="">
+      <img class="rounded img-fluid" src="<%= item[:image_url] %>" alt="">
     </aside>
     <div class="col-sm-8">
       <p><%= item[:name] %></p>

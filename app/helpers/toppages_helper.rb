@@ -8,7 +8,7 @@ module ToppagesHelper
     items = RakutenWebService::Ichiba::Item.search(keyword: keyword)
     items.first(10).each do |item|
       item_value = Hash.new
-      item_value[:medium_image_urls] = item["mediumImageUrls"][0]
+      item_value[:image_url] = item["mediumImageUrls"][0]
       item_value[:name] = item["itemName"]
       item_value[:price] = item["itemPrice"]
       item_value[:shop_url] = item["affiliateUrl"]
@@ -29,7 +29,7 @@ module ToppagesHelper
     array_items = Array.new
     res.items.first(10).each do |item|
       item_value = Hash.new
-      item_value[:medium_image_urls] = item.get("MediumImage/URL")
+      item_value[:image_url] = item.get("MediumImage/URL")
       item_value[:name] = item.get("ItemAttributes/Title")
       item_value[:price] = item.get('Offers/Offer/OfferListing/Price/Amount')
       item_value[:shop_url] = item.get("DetailPageURL")
