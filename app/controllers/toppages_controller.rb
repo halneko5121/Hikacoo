@@ -1,6 +1,7 @@
 class ToppagesController < ApplicationController
- before_action :check_search_validate, only: [:search]
-  
+  before_action :check_search_validate, only: [:search]
+  before_action :update_trend_words, only: [:index, :search, :comparison]
+
   include ToppagesHelper
   
   def index
@@ -43,5 +44,11 @@ class ToppagesController < ApplicationController
       flash[:danger] = "検索ワードを入力してください"
       redirect_to root_url
     end
+  end
+  
+  def update_trend_words
+    # 中身をシャッフルして格納
+    @trend_words = search_google_trand_word()
+    @trend_words = @trend_words.shuffle
   end
 end
