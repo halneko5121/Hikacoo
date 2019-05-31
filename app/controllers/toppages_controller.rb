@@ -50,7 +50,9 @@ class ToppagesController < ApplicationController
   
   def update_trend_words
     # 中身をシャッフルして格納
-    @trend_words = search_google_trand_word()
-    @trend_words = @trend_words.shuffle
+    trend_words = search_google_trand_word()
+    trend_words = trend_words.shuffle
+    @trend_word_first  = trend_words[0, 3]
+    @trend_word_second = trend_words[4, 3]
   end
 end
