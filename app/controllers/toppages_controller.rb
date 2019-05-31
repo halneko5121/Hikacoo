@@ -5,6 +5,7 @@ class ToppagesController < ApplicationController
   include ToppagesHelper
   
   def index
+    @trend_word = params[:commit]
   end
   
   def search

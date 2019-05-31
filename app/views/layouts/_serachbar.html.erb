@@ -3,16 +3,23 @@
 </div>
 <%= form_with(url: search_path, scope: :search_word, local: true) do |f| %>
   <div class="form-group row">
-    <%= f.text_field :title, class: "form-control" %>
+    <% if @trend_word == nil %>
+      <%= f.text_field :title, class: "form-control" %>
+    <% else %>
+      <%= f.text_field :title, value: @trend_word, class: "form-control" %>
+    <% end %>
     <%= f.submit '検索', class: "btn btn-primary" %>
   </div>
 <% end %>
-
 <div class="mt-1 pb-1 border-bottom">本日のトレンドワード（ランダムで6個表示してます）</div>
 <div class="mt-2 mb-2 d-flex flex-row">
   <% @trend_words.first(6).each do |trend_word| %>
-    <div class="mr-4">
-      <p><%= trend_word %></p>
-    </div>
+    <%= form_with(url: root_url, scope: :trend_word, local: true) do |f| %>
+      <div class="form-group row">
+        <div class="mr-4">
+          <%= f.submit trend_word, class: "btn btn-success" %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>
