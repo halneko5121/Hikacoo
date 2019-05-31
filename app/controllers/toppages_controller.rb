@@ -17,7 +17,9 @@ class ToppagesController < ApplicationController
     end
 
     # 検索
-    keyword = params[:search_word][:title]
+#    keyword = params[:search_word][:title]
+    keyword = params.require(:search_word).permit(:title)[:title]
+
     puts "keyword ======> #{keyword}"
     @items = search_amazon(keyword, 10) # search_amazon(keyword)
     @items.each do |item|
@@ -40,7 +42,7 @@ class ToppagesController < ApplicationController
   
   private
   def check_search_validate()
-    search_word = params[:search_word][:title]
+    search_word = params.require(:search_word).permit(:title)[:title]
     if search_word == ""
       flash[:danger] = "検索ワードを入力してください"
       redirect_to root_url
