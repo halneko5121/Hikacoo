@@ -71,8 +71,15 @@ module ToppagesHelper
 
   def search_rakuten(keyword, count)
     
+    puts "xxxxxxxxxxxxxxxxxxxxxx"
+    puts keyword
+    puts "xxxxxxxxxxxxxxxxxxxxxx"
+
     # パラメータ設定
     search_word = URI.encode(keyword)
+    puts "----------------------"
+    puts search_word
+    puts "----------------------"
     rakuten_ecs_yml = YAML.load_file("#{Rails.root}/config/rakuten_ecs.yml")
     app_id = "?applicationId=#{rakuten_ecs_yml['application_id']}"
     query  = "&keyword=#{search_word}"
@@ -83,6 +90,8 @@ module ToppagesHelper
     response_json = Net::HTTP.get(uri)
     response_json = response_json.force_encoding("utf-8")
     response_data = JSON.parse(response_json)
+    
+    p response_data
 
     array_items = Array.new
     items = response_data["Items"]
