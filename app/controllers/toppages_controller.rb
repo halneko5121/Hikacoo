@@ -17,7 +17,6 @@ class ToppagesController < ApplicationController
     end
 
     # 検索
-#    keyword = params[:search_word][:title]
     keyword = params.require(:search_word).permit(:title)[:title]
 
     puts "keyword ======> #{keyword}"
