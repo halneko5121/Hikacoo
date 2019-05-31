@@ -1,0 +1,7 @@
+<div class="mt-2 mb-2 d-flex flex-row">
+  <% trend_words.each do |trend_word| %>
+    <%= form_with(url: root_url, local: true) do |f| %>
+      <%= f.submit trend_word, class: "mr-4 btn btn-success" %>
+    <% end %>
+  <% end %>
+</div>

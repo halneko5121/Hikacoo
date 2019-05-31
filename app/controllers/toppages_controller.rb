@@ -20,7 +20,7 @@ class ToppagesController < ApplicationController
     keyword = params.require(:search_word).permit(:title)[:title]
 
     puts "keyword ======> #{keyword}"
-    @items = search_amazon(keyword, 10) # search_amazon(keyword)
+    @items = search_rakuten(keyword, 1) # search_amazon(keyword)
     @items.each do |item|
       # 存在しなければレコード保存
       if Item.find_by(name: item[:name]) == nil
@@ -35,8 +35,8 @@ class ToppagesController < ApplicationController
   
   def comparison
     item = params[:title]
-    @rakuten_item = search_rakuten(item, 1)
-    @amazon_item = Item.find_by(name: item)
+    @yahoo_item = search_yahoo_shopping(item, 1)
+    @rakuten_item = Item.find_by(name: item)
   end
   
   private

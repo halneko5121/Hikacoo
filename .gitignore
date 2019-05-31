@@ -27,3 +27,4 @@
 /config/master.key
 /config/amazon_ecs.yml
 /config/rakuten_ecs.yml
+/config/yahoo_ecs.yml
