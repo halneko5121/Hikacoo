@@ -20,7 +20,7 @@ class ToppagesController < ApplicationController
     keyword = params.require(:search_word).permit(:title)[:title]
 
     puts "keyword ======> #{keyword}"
-    @items = search_rakuten(keyword, 1) # search_amazon(keyword)
+    @items = search_rakuten(keyword, 10) # search_amazon(keyword)
     @items.each do |item|
       # 存在しなければレコード保存
       if Item.find_by(name: item[:name]) == nil
