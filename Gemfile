@@ -58,4 +58,6 @@ gem "rakuten_web_service"
 
 gem "amazon-ecs"
 
+gem 'nokogiri'
+
 gem 'pry-byebug', group: :development
