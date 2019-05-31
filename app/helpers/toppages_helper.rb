@@ -136,13 +136,12 @@ module ToppagesHelper
     
     # 検索キーワードは空白を「+」に変換する
     search_word = keyword.gsub(" ", "+")
-    puts search_word
 
     # URL設定
-    url = 'https://www.amazon.co.jp/s?k='
+    base_url = "https://www.amazon.co.jp/"
+    url = base_url + 's?k='
     request_url = url + URI.encode(search_word)
-    puts request_url
-    
+
     # スクレイピング先のURL
     charset = nil
     html = OpenURI.open_uri(URI(request_url)) do |f|
@@ -170,13 +169,15 @@ module ToppagesHelper
         node.xpath("//*[@id='search']/div[1]/div[2]/div/span[3]/div[1]/div[#{index+1}]/div/div/div/div[2]/div[3]/div/div[1]/div[2]/div/a/span/span[2]/span[2]").each do |chiled_node|
           item_value[:price] = chiled_node.children.text 
         end
-        # Image URL
+        # Shop URL
         node.xpath("//*[@id='search']/div[1]/div[2]/div/span[3]/div[1]/div[#{index+1}]/div/div/div/div[2]/div[2]/div/div/h2/a").each do |chiled_node|
-          item_value[:shop_url] = chiled_node.attributes["href"].value
+          item_value[:shop_url] = base_url + chiled_node.attributes["href"].value
         end
         array_items.push(item_value)
       end
     end
+    
+    return array_items
   end
   
   private
