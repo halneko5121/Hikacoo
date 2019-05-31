@@ -64,11 +64,7 @@ module ToppagesHelper
       item_value[:price] = item["Price"]["_value"]
       item_value[:shop_url] = item["Url"]
       array_items.push(item_value)
-
-      puts "mmmmmmmmmmmmmmmmmmmm"
-      p item
-      puts "mmmmmmmmmmmmmmmmmmmm"
-end
+    end
     
     return array_items
   end
@@ -124,7 +120,6 @@ end
 
     array_items = Array.new
     res.items.first(count).each do |item|
-#      puts item.get_element('OfferSummary')
       item_value = Hash.new
       item_value[:image_url] = item.get("MediumImage/URL")
       item_value[:name] = item.get("ItemAttributes/Title")
