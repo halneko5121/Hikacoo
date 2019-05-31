@@ -1,0 +1,16 @@
+<% if items.empty? %>
+  <p>該当する商品は見つかりませんでした。</p>
+<% else %>
+  <% items.each do |item| %>
+    <div class="row">
+      <aside class="col-sm-4">
+        <img class="rounded img-fluid" src="<%= item[:image_url] %>" alt="">
+      </aside>
+      <div class="col-sm-8">
+        <p><%= item[:name] %></p>
+        <p><%= item[:price] %></p>
+        <p><a href="<%= item[:shop_url] %>" class="btn btn-primary">ショップで確認</a></p>
+      </div>
+    </div>
+  <% end %>    
+<% end %>
