@@ -35,42 +35,6 @@ module ToppagesHelper
     return trend_word_array
   end
 
-  def search_yahoo_shopping(keyword, count)
-    
-    # パラメータ設定
-    search_word     = URI.encode(keyword)
-    query           = "&query=#{search_word}"
-    yahoo_ecs_yml   = YAML.load_file("#{Rails.root}/config/yahoo_ecs.yml")
-    app_id          = "?appid=#{yahoo_ecs_yml['appid']}"
-    condition       = "&condition=new"
-    affiliate_type  = "&affiliate_type=vc"
-    temp_affi_id    = URI.encode(yahoo_ecs_yml["affiliate_id"])
-    affiliate_id    = "&affiliate_id=#{temp_affi_id}"
-    base_url        = "https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch"
-    param_string    = "#{app_id}" + "#{query}" + "#{condition}" + "#{affiliate_type}" + "#{affiliate_id}"
-
-    # リクエスト送信
-    uri = URI("#{base_url}" + "#{param_string}" )
-    response_json = Net::HTTP.get(uri)
-    response_json = response_json.force_encoding("utf-8")
-    response_data = JSON.parse(response_json)
-    
-    # 情報の設定
-    array_items = Array.new
-    base_data = response_data["ResultSet"]["0"]["Result"]
-    count.times do |index|
-      item = base_data["#{index}"]
-      item_value = Hash.new
-      item_value[:image_url]  = item["Image"]["Medium"]
-      item_value[:name]       = item["Name"]
-      item_value[:price]      = item["Price"]["_value"]
-      item_value[:shop_url]   = item["Url"]
-      array_items.push(item_value)
-    end
-    
-    return array_items
-  end
-
   def search_rakuten(keyword, count)
     
     # パラメータ設定
