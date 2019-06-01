@@ -15,7 +15,7 @@ class ToppagesController < ApplicationController
 
     puts "keyword ======> #{keyword}"
     @items = search_rakuten(keyword, 10)
-    update_item_database(@items)
+    update_item_database(Item, @items)
   end
   
   def comparison
@@ -25,19 +25,19 @@ class ToppagesController < ApplicationController
   end
   
   private
-  def update_item_database(update_items)
+  def update_item_database(database_name, update_items)
   
     # 何かしら入っていたら全削除
-    items = Item.all
+    items = database_name.all
     if !items.empty?
-      Item.delete_all
+      database_name.delete_all
     end
     
     update_items.each do |item|
   
       # 存在しなければレコード保存
-      if Item.find_by(name: item[:name]) == nil
-        item_record = Item.new(
+      if database_name.find_by(name: item[:name]) == nil
+        item_record = database_name.new(
           name: "#{item[:name]}", price: "#{item[:price]}",
           image_url: "#{item[:image_url]}", shop_url: "#{item[:shop_url]}"
         )
@@ -46,7 +46,6 @@ class ToppagesController < ApplicationController
     end
   end
 
-  
   def check_search_validate()
     search_word = params.require(:search_word).permit(:title)[:title]
     if search_word == ""
