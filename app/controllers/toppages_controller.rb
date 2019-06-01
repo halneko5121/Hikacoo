@@ -21,6 +21,7 @@ class ToppagesController < ApplicationController
   end
   
   def comparison
+
     # 楽天商品から「比較」された
     if params["rakuten"] != nil
       item_name = params["rakuten"][:name]
@@ -58,6 +59,7 @@ class ToppagesController < ApplicationController
   end
 
   def check_search_validate()
+
     search_word = params.require(:search_word).permit(:content)[:content]
     if search_word == ""
       flash[:danger] = "検索ワードを入力してください"
@@ -66,6 +68,7 @@ class ToppagesController < ApplicationController
   end
   
   def update_trend_words
+
     # 中身をシャッフルして格納
     trend_words = search_google_trand_word()
     trend_words = trend_words.shuffle
