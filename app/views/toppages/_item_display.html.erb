@@ -12,9 +12,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 center-block">
+      <div class="col-sm-12 text-center">
         <p><font size="6" color="red"><%= item[:price] %>（税込）</font></p>
-        <p><a href="<%= item[:shop_url] %>" class="btn btn-primary">ショップで確認</a></p>
+      </div>
+      <div class="col-sm-12">
+        <p><a href="<%= item[:shop_url] %>" class="col-sm-11 btn btn-primary">ショップで確認</a></p>
       </div>
     </div>
   <% end %>    
