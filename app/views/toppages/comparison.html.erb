@@ -1,3 +1,11 @@
 <h2 class="mt-4 pb-4 border-bottom">商品比較</h2>
-<%= render 'toppages/item_display', items: @rakuten_item %>
-<%= render 'toppages/item_display', items: @amazon_item %>
+<div class="row">
+  <aside class="col-sm-6">
+    <h3 class="mt-4 pb-4 border-bottom">楽天ブックス</h3>
+    <%= render 'toppages/item_display', items: @rakuten_item %>
+  </aside>
+  <div class="col-sm-6">
+    <h3 class="mt-4 pb-4 border-bottom">Amazon</h3>
+    <%= render 'toppages/item_display', items: @amazon_item %>
+  </div>
+</div>
