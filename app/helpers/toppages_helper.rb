@@ -46,10 +46,11 @@ module ToppagesHelper
     affiliate_type  = "&affiliate_type=vc"
     temp_affi_id    = URI.encode(yahoo_ecs_yml["affiliate_id"])
     affiliate_id    = "&affiliate_id=#{temp_affi_id}"
+    base_url        = "https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch"
     param_string    = "#{app_id}" + "#{query}" + "#{condition}" + "#{affiliate_type}" + "#{affiliate_id}"
 
     # リクエスト送信
-    uri = URI("https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch" + "#{param_string}" )
+    uri = URI("#{base_url}" + "#{param_string}" )
     response_json = Net::HTTP.get(uri)
     response_json = response_json.force_encoding("utf-8")
     response_data = JSON.parse(response_json)
