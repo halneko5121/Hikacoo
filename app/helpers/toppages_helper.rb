@@ -3,16 +3,17 @@ module ToppagesHelper
   def search_google_trand_word()
     
     # 20010101 形式で現在日付を取得
-    data = DateTime.now.strftime('%Y%m%d')
-    puts "現在日付 => #{data}"
+    date = DateTime.now.strftime('%Y%m%d')
+    puts "現在日付 => #{date}"
     
     # google トレンド情報を取得
-    uri = URI("https://trends.google.com/" + "trends/api/dailytrends" + "?geo=JP" + "&ed=#{data}")
+    uri = URI("https://trends.google.com/" + "trends/api/dailytrends" + "?geo=JP" + "&ed=#{date}")
     response_json = Net::HTTP.get(uri)
 
     # なんかゴミデータが残ってるので削除
     response_json[0, 5] = ''
 
+    # JSON パース
     response_json = response_json.force_encoding("utf-8")
     response_data = JSON.parse(response_json)
 
@@ -23,10 +24,9 @@ module ToppagesHelper
     end
 =end
 
-    base_data = response_data["default"]["trendingSearchesDays"][0]
-
     # トレンドデータ取得（トレンドワード）
     trend_word_array = Array.new
+    base_data   = response_data["default"]["trendingSearchesDays"][0]
     trend_datas = base_data["trendingSearches"]
     trend_datas.each do |trand_data|
       trend_word_array.push(trand_data["title"]["query"])
@@ -38,14 +38,14 @@ module ToppagesHelper
   def search_yahoo_shopping(keyword, count)
     
     # パラメータ設定
-    search_word = URI.encode(keyword)
-    yahoo_ecs_yml = YAML.load_file("#{Rails.root}/config/yahoo_ecs.yml")
-    app_id = "?appid=#{yahoo_ecs_yml['appid']}"
-    query  = "&query=#{search_word}"
-    condition = "&condition=new"
-    affiliate_type = "&affiliate_type=vc"
-    temp_affi_id = URI.encode(yahoo_ecs_yml["affiliate_id"])
-    affiliate_id = "&affiliate_id=#{temp_affi_id}"
+    search_word     = URI.encode(keyword)
+    yahoo_ecs_yml   = YAML.load_file("#{Rails.root}/config/yahoo_ecs.yml")
+    app_id          = "?appid=#{yahoo_ecs_yml['appid']}"
+    query           = "&query=#{search_word}"
+    condition       = "&condition=new"
+    affiliate_type  = "&affiliate_type=vc"
+    temp_affi_id    = URI.encode(yahoo_ecs_yml["affiliate_id"])
+    affiliate_id    = "&affiliate_id=#{temp_affi_id}"
 
     # リクエスト送信
     uri = URI("https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch" + "#{app_id}" + "#{query}" + "#{condition}" + "#{affiliate_type}" + "#{affiliate_id}" )
@@ -59,10 +59,10 @@ module ToppagesHelper
     count.times do |index|
       item = base_data["#{index}"]
       item_value = Hash.new
-      item_value[:image_url] = item["Image"]["Medium"]
-      item_value[:name] = item["Name"]
-      item_value[:price] = item["Price"]["_value"]
-      item_value[:shop_url] = item["Url"]
+      item_value[:image_url]  = item["Image"]["Medium"]
+      item_value[:name]       = item["Name"]
+      item_value[:price]      = item["Price"]["_value"]
+      item_value[:shop_url]   = item["Url"]
       array_items.push(item_value)
     end
     
@@ -76,14 +76,11 @@ module ToppagesHelper
     puts "xxxxxxxxxxxxxxxxxxxxxx"
 
     # パラメータ設定
-    search_word = URI.encode(keyword)
-    puts "----------------------"
-    puts search_word
-    puts "----------------------"
+    search_word     = URI.encode(keyword)
     rakuten_ecs_yml = YAML.load_file("#{Rails.root}/config/rakuten_ecs.yml")
-    app_id = "?applicationId=xxxx" #=#{rakuten_ecs_yml['application_id']}"
-    query  = "&keyword=#{search_word}"
-    affiliate_id = "&affiliate_id=#{rakuten_ecs_yml['affiliate_id']}"
+    app_id          = "?applicationId=#{rakuten_ecs_yml['application_id']}"
+    query           = "&keyword=#{search_word}"
+    affiliate_id    = "&affiliate_id=#{rakuten_ecs_yml['affiliate_id']}"
 
     # リクエスト送信
     uri = URI("https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404" + "#{app_id}" + "#{query}" + "#{affiliate_id}")
@@ -102,10 +99,10 @@ module ToppagesHelper
     items = response_data["Items"]
     items.first(count).each do |item|
       item_value = Hash.new
-      item_value[:image_url] = item["Item"]["mediumImageUrl"]
-      item_value[:name] = item["Item"]["title"]
-      item_value[:price] = item["Item"]["itemPrice"]
-      item_value[:shop_url] = item["Item"]["itemUrl"]
+      item_value[:image_url]  = item["Item"]["mediumImageUrl"]
+      item_value[:name]       = item["Item"]["title"]
+      item_value[:price]      = item["Item"]["itemPrice"]
+      item_value[:shop_url]   = item["Item"]["itemUrl"]
       array_items.push(item_value)
     end
 
@@ -135,11 +132,11 @@ module ToppagesHelper
     array_items = Array.new
     res.items.first(count).each do |item|
       item_value = Hash.new
-      item_value[:image_url] = item.get("MediumImage/URL")
-      item_value[:name] = item.get("ItemAttributes/Title")
-#      item_value[:price] = item.get('Offers/Offer/OfferListing/Price/Amount')
-      item_value[:price] = item.get('OfferSummary/LowestNewPrice/Amount')
-      item_value[:shop_url] = item.get("DetailPageURL")
+      item_value[:image_url]  = item.get("MediumImage/URL")
+      item_value[:name]       = item.get("ItemAttributes/Title")
+#      item_value[:price]     = item.get('Offers/Offer/OfferListing/Price/Amount')
+      item_value[:price]      = item.get('OfferSummary/LowestNewPrice/Amount')
+      item_value[:shop_url]   = item.get("DetailPageURL")
       array_items.push(item_value)
     end
     
@@ -152,8 +149,8 @@ module ToppagesHelper
     search_word = keyword.gsub(" ", "+")
 
     # URL設定
-    base_url = "https://www.amazon.co.jp/"
-    url = base_url + 's?k='
+    base_url    = "https://www.amazon.co.jp/"
+    url         = base_url + 's?k='
     request_url = url + URI.encode(search_word)
 
     # スクレイピング先のURL
@@ -200,8 +197,8 @@ module ToppagesHelper
     # rakuten_web_service内のclassで使えるようにアプリケーションIDを設定
     rakuten_ecs_yml = YAML.load_file("#{Rails.root}/config/rakuten_ecs.yml")
     RakutenWebService.configure do |options|
-      options.application_id = rakuten_ecs_yml["application_id"] if rakuten_ecs_yml["application_id"].present?
-      options.affiliate_id = rakuten_ecs_yml["affiliate_id"] if rakuten_ecs_yml["affiliate_id"].present?
+      options.application_id  = rakuten_ecs_yml["application_id"] if rakuten_ecs_yml["application_id"].present?
+      options.affiliate_id    = rakuten_ecs_yml["affiliate_id"] if rakuten_ecs_yml["affiliate_id"].present?
     end
   end
 
