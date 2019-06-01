@@ -8,7 +8,7 @@
       </aside>
       <div class="col-sm-8">
         <p><%= item[:name] %></p>
-        <p><%= item[:price] %>（税込）</p>
+        <p><font color="red"><%= item[:price] %>（税込）</font></p>
         <p>発売日 : <%= item[:sales_date] %></p>
         <%= form_with(url: comparison_path, scope: scope_name, local: true) do |f| %>
           <%= f.hidden_field :name, :value => item[:name] %>

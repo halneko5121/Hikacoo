@@ -8,7 +8,7 @@
       </aside>
       <div class="col-sm-8">
         <p><%= item[:name] %></p>
-        <p><%= item[:price] %></p>
+        <p><font color="red"><%= item[:price] %>（税込）</font></p>
         <p>発売日 : <%= item[:sales_date] %></p>
         <p><a href="<%= item[:shop_url] %>" class="btn btn-primary">ショップで確認</a></p>
       </div>

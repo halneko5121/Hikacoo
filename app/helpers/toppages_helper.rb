@@ -66,7 +66,7 @@ module ToppagesHelper
       item_value[:name]       = item["Item"]["title"]
       item_value[:price]      = "¥ " + item["Item"]["itemPrice"].to_s(:delimited)
       item_value[:shop_url]   = item["Item"]["itemUrl"]
-      item_value[:sales_date]   = item["Item"]["salesDate"]
+      item_value[:sales_date] = item["Item"]["salesDate"]
       array_items.push(item_value)
     end
 
