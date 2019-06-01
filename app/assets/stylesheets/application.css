@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+.fix-height {
+    min-height: 200px;
+}
+
+.parent {
+	position: relative;
+}
+.children-bottom {
+	position: absolute;
+	bottom: 0;
+}

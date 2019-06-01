@@ -2,21 +2,23 @@
   <p>該当する商品は見つかりませんでした。<br>キーワードを変えてお試し下さい。</p>
 <% else %>
   <% items.each do |item| %>
-    <div class="row">
-      <aside class="col-sm-4">
-        <img class="rounded img-fluid" src="<%= item[:image_url] %>" alt="">
-      </aside>
-      <div class="col-sm-8">
-        <p><%= item[:name] %></p>
-        <p>発売日 : <%= item[:sales_date] %></p>
+    <div class="container mb-2">
+      <div class="row fix-height">
+        <aside class="col-sm-4">
+          <img class="rounded d-flex align-items-center" src="<%= item[:image_url] %>" alt="">
+        </aside>
+        <div class="col-sm-8 parent">
+          <p><%= item[:name] %></p>
+          <p>発売日 : <%= item[:sales_date] %></p>
+          <div class="col-sm-12 text-center children-bottom">
+            <p><font size="6" color="red"><%= item[:price] %>（税込）</font></p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 text-center">
-        <p><font size="6" color="red"><%= item[:price] %>（税込）</font></p>
-      </div>
-      <div class="col-sm-12">
-        <p><a href="<%= item[:shop_url] %>" class="col-sm-11 btn btn-primary">ショップで確認</a></p>
+      <div class="row">
+        <div class="col-sm-12">
+          <p><a href="<%= item[:shop_url] %>" class="col-sm-12 btn btn-primary">ショップで確認</a></p>
+        </div>
       </div>
     </div>
   <% end %>    
