@@ -143,6 +143,55 @@ module ToppagesHelper
     return array_items
   end
   
+  def scraping_search_amazon_site(keyword, count)
+
+    # 検索キーワードは空白を「+」に変換する
+    search_word = keyword.gsub(" ", "+")
+
+    # URL設定
+    base_url    = "https://paboo.net/result/"
+    request_url = base_url + "?a_page=1&r_page=1&search=" + URI.encode(search_word)
+
+    # スクレイピング先のURL
+    charset = nil
+    html = OpenURI.open_uri(URI(request_url)) do |f|
+      charset = f.charset     # 文字種別を取得
+      f.read                  # htmlを読み込んで変数htmlに渡す
+    end
+
+    # htmlをパース(解析)してオブジェクトを生成
+    doc = Nokogiri::HTML.parse(html, nil, charset)
+
+    puts "========================"
+    # 指定件数の情報を取得
+    array_items = Array.new
+    count.times do |index|
+      item_value = Hash.new
+      doc.xpath("//*[@id='ama_res_in']").each do |node|
+        # Image URL
+        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/div/a/img").each do |chiled_node|
+          item_value[:image_url] = chiled_node.attributes["src"].value
+        end
+        # Title
+        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |chiled_node|
+          item_value[:name] = chiled_node.children.text
+        end
+        # Price
+        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |chiled_node|
+          item_value[:price] = chiled_node.children.text 
+        end
+        # Shop URL
+        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |chiled_node|
+          item_value[:shop_url] = base_url + chiled_node.attributes["href"].value
+        end
+        array_items.push(item_value)
+      end
+    end
+    puts "========================"
+    
+    return array_items
+  end
+
   def scraping_search_amazon(keyword, count)
     
     # 検索キーワードは空白を「+」に変換する
@@ -150,8 +199,7 @@ module ToppagesHelper
 
     # URL設定
     base_url    = "https://www.amazon.co.jp/"
-    url         = base_url + 's?k='
-    request_url = url + URI.encode(search_word)
+    request_url = base_url + 's?k=' + URI.encode(search_word)
 
     # スクレイピング先のURL
     charset = nil

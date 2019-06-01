@@ -15,7 +15,7 @@ class ToppagesController < ApplicationController
 
     puts "keyword ======> #{keyword}"
     @items = search_rakuten(keyword, 10)
-    @items2 = scraping_search_amazon(keyword, 10)
+    @items2 = scraping_search_amazon_site(keyword, 10)
     update_item_database(Item, @items)
     update_item_database(ComparisonItem, @items2)
   end
@@ -25,7 +25,7 @@ class ToppagesController < ApplicationController
     if params["rakuten"] != nil
       item_name = params["rakuten"][:name]
       @rakuten_item = [Item.find_by(name: item_name)]
-      @amazon_item = scraping_search_amazon(item_name, 1)
+      @amazon_item = scraping_search_amazon_site(item_name, 1)
       
     # amazonから「比較」された
     elsif params["amazon"] != nil
