@@ -1,11 +1,11 @@
 <h3 class="mt-4 pb-3 bg-warning text-white rounded-pill p-3">検索結果（キーワード「<%= @keyword %>」）</h3>
 <div class="row">
   <aside class="col-lg-6">
-    <h4 class="mt-4 pb-3 border-bottom border-danger">楽天ブックス</h4>
+    <h4 class="mt-4 pb-2 border-bottom border-danger">楽天ブックス</h4>
     <%= render 'toppages/search_result', {items: @rakuten_item, scope_name: "rakuten" } %>
   </aside>
   <div class="col-lg-6">
-    <h4 class="mt-4 pb-3 border-bottom border-warning">Amazon</h4>
+    <h4 class="mt-4 pb-2 border-bottom border-warning">Amazon</h4>
     <%= render 'toppages/search_result', {items: @amazon_item, scope_name: "amazon" } %>
   </div>
 </div>

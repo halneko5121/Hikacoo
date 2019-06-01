@@ -22,7 +22,7 @@ body {
 	background    : #ffcc99;              /* BOXの背景色          */
 	border        : 3px dotted #7f4600;   /* 枠線の指定           */
 	border-radius : 4px;                  /* 角丸の指定           */
-	box-shadow    : 0 0 0 12px #ffcc99;   /* 影を利用した外余白   */
+	box-shadow    : 0 0 0 8px #ffcc99;   /* 影を利用した外余白   */
 }
 
 .fix-height {
