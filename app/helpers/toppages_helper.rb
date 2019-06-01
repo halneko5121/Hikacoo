@@ -203,15 +203,4 @@ module ToppagesHelper
     
     return array_items
   end
-  
-  private
-  def init_rakuten()
-  
-    # rakuten_web_service内のclassで使えるようにアプリケーションIDを設定
-    rakuten_ecs_yml = YAML.load_file("#{Rails.root}/config/rakuten_ecs.yml")
-    RakutenWebService.configure do |options|
-      options.application_id  = rakuten_ecs_yml["application_id"] if rakuten_ecs_yml["application_id"].present?
-      options.affiliate_id    = rakuten_ecs_yml["affiliate_id"] if rakuten_ecs_yml["affiliate_id"].present?
-    end
-  end
 end
