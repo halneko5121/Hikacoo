@@ -108,29 +108,6 @@ module ToppagesHelper
     return array_items
   end
 
-  def search_amazon(keyword, count)
-
-    init_amazon()
-    res = Amazon::Ecs.item_search(
-      keyword,
-      response_group: 'ItemAttributes, Images, OfferSummary',
-      country: 'jp',
-    )
-
-    array_items = Array.new
-    res.items.first(count).each do |item|
-      item_value = Hash.new
-      item_value[:image_url]  = item.get("MediumImage/URL")
-      item_value[:name]       = item.get("ItemAttributes/Title")
-#      item_value[:price]     = item.get('Offers/Offer/OfferListing/Price/Amount')
-      item_value[:price]      = item.get('OfferSummary/LowestNewPrice/Amount')
-      item_value[:shop_url]   = item.get("DetailPageURL")
-      array_items.push(item_value)
-    end
-    
-    return array_items
-  end
-  
   def scraping_search_amazon_site(keyword, count)
 
     # 検索キーワードは空白を「+」に変換する
@@ -235,19 +212,6 @@ module ToppagesHelper
     RakutenWebService.configure do |options|
       options.application_id  = rakuten_ecs_yml["application_id"] if rakuten_ecs_yml["application_id"].present?
       options.affiliate_id    = rakuten_ecs_yml["affiliate_id"] if rakuten_ecs_yml["affiliate_id"].present?
-    end
-  end
-
-  def init_amazon()
-
-    # このaccess_keyとsecret_keyは、associate画面から取得できるkeyを使う
-    amazon_ecs_yml = YAML.load_file("#{Rails.root}/config/amazon_ecs.yml")
-    keys = [:AWS_access_key_id, :AWS_secret_key, :associate_tag]
-    Amazon::Ecs.debug = true
-    Amazon::Ecs.configure do |options|
-      keys.each do |key|
-        options[key] = amazon_ecs_yml[key.to_s] if amazon_ecs_yml[key.to_s].present?
-      end
     end
   end
 end
