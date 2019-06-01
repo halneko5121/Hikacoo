@@ -92,7 +92,6 @@ module ToppagesHelper
     # htmlをパース(解析)してオブジェクトを生成
     doc = Nokogiri::HTML.parse(html, nil, charset)
 
-    puts "========================"
     # 指定件数の情報を取得
     array_items = Array.new
     count.times do |index|
@@ -124,8 +123,7 @@ module ToppagesHelper
         array_items.push(item_value)
       end
     end
-    puts "========================"
-    
+
     return array_items
   end
 end
