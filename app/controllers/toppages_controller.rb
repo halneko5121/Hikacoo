@@ -15,13 +15,24 @@ class ToppagesController < ApplicationController
 
     puts "keyword ======> #{keyword}"
     @items = search_rakuten(keyword, 10)
+    @items2 = scraping_search_amazon(keyword, 10)
     update_item_database(Item, @items)
+    update_item_database(ComparisonItem, @items2)
   end
   
   def comparison
-    item_name = params[:title]
-    @rakuten_item = [Item.find_by(name: item_name)]
-    @amazon_item = scraping_search_amazon(item_name, 1)
+    # 楽天商品から「比較」された
+    if params["rakuten"] != nil
+      item_name = params["rakuten"][:name]
+      @rakuten_item = [Item.find_by(name: item_name)]
+      @amazon_item = scraping_search_amazon(item_name, 1)
+      
+    # amazonから「比較」された
+    elsif params["amazon"] != nil
+      item_name = params["amazon"][:name]
+      @rakuten_item = search_rakuten(item_name, 1)
+      @amazon_item = [ComparisonItem.find_by(name: item_name)]
+    end
   end
   
   private

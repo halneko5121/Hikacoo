@@ -1,20 +1,47 @@
 <h2 class="mt-4 pb-4 border-bottom">検索結果</h2>
-<% if @items.empty? %>
-  <p>該当する商品は見つかりませんでした。</p>
-<% else %>
-  <% @items.each do |item| %>
-    <div class="row">
-      <aside class="col-sm-4">
-        <img class="rounded img-fluid" src="<%= item[:image_url] %>" alt="">
-      </aside>
-      <div class="col-sm-8">
-        <p><%= item[:name] %></p>
-        <p><%= item[:price] %></p>
-        <%= form_with(url: comparison_path, local: true) do |f| %>
-          <%= hidden_field_tag :title, item[:name] %>
-          <%= f.submit '商品比較', class: "btn btn-primary" %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>    
-<% end %>    
+<div class="row">
+  <aside class="col-sm-6">
+    <h3 class="mt-4 pb-4 border-bottom">楽天ブックス</h3>
+    <% if @items.empty? %>
+      <p>該当する商品は見つかりませんでした。</p>
+    <% else %>
+      <% @items.each do |item| %>
+        <div class="row">
+          <aside class="col-sm-4">
+            <img class="rounded img-fluid" src="<%= item[:image_url] %>" alt="">
+          </aside>
+          <div class="col-sm-8">
+            <p><%= item[:name] %></p>
+            <p><%= item[:price] %></p>
+            <%= form_with(url: comparison_path, scope: :rakuten, local: true) do |f| %>
+              <%= f.hidden_field :name, :value => item[:name] %>
+              <%= f.submit '商品比較', class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>    
+    <% end %>
+  </aside>
+  <div class="col-sm-6">
+    <h3 class="mt-4 pb-4 border-bottom">Amazon</h3>
+    <% if @items2.empty? %>
+      <p>該当する商品は見つかりませんでした。</p>
+    <% else %>
+      <% @items2.each do |item| %>
+        <div class="row">
+          <aside class="col-sm-4">
+            <img class="rounded img-fluid" src="<%= item[:image_url] %>" alt="">
+          </aside>
+          <div class="col-sm-8">
+            <p><%= item[:name] %></p>
+            <p><%= item[:price] %></p>
+            <%= form_with(url: comparison_path, scope: :amazon, local: true) do |f| %>
+              <%= f.hidden_field :name, :value => item[:name] %>
+              <%= f.submit '商品比較', class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>    
+    <% end %>
+  </div>
+</div>
