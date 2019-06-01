@@ -11,11 +11,11 @@ class ToppagesController < ApplicationController
   def search
 
     # 検索
-    keyword = params.require(:search_word).permit(:content)[:content]
+    @keyword = params.require(:search_word).permit(:content)[:content]
 
-    puts "keyword ======> #{keyword}"
-    @rakuten_item = search_rakuten(keyword, 10)
-    @amazon_item = scraping_search_amazon_site(keyword, 10)
+    puts "keyword ======> #{@keyword}"
+    @rakuten_item = search_rakuten(@keyword, 10)
+    @amazon_item = scraping_search_amazon_site(@keyword, 10)
     update_item_database(Item, @rakuten_item)
     update_item_database(ComparisonItem, @amazon_item)
   end
