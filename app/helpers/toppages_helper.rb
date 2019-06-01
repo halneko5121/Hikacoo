@@ -101,7 +101,7 @@ module ToppagesHelper
       item_value = Hash.new
       item_value[:image_url]  = item["Item"]["mediumImageUrl"]
       item_value[:name]       = item["Item"]["title"]
-      item_value[:price]      = item["Item"]["itemPrice"]
+      item_value[:price]      = "¥ " + item["Item"]["itemPrice"].to_s
       item_value[:shop_url]   = item["Item"]["itemUrl"]
       array_items.push(item_value)
     end
