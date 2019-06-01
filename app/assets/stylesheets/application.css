@@ -13,6 +13,10 @@
  *= require_tree .
  *= require_self
  */
+body {
+	background-color: #ECD7B9;
+}
+ 
 .fix-height {
     min-height: 200px;
 }
