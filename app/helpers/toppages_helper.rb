@@ -39,16 +39,17 @@ module ToppagesHelper
     
     # パラメータ設定
     search_word     = URI.encode(keyword)
+    query           = "&query=#{search_word}"
     yahoo_ecs_yml   = YAML.load_file("#{Rails.root}/config/yahoo_ecs.yml")
     app_id          = "?appid=#{yahoo_ecs_yml['appid']}"
-    query           = "&query=#{search_word}"
     condition       = "&condition=new"
     affiliate_type  = "&affiliate_type=vc"
     temp_affi_id    = URI.encode(yahoo_ecs_yml["affiliate_id"])
     affiliate_id    = "&affiliate_id=#{temp_affi_id}"
+    param_string    = "#{app_id}" + "#{query}" + "#{condition}" + "#{affiliate_type}" + "#{affiliate_id}"
 
     # リクエスト送信
-    uri = URI("https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch" + "#{app_id}" + "#{query}" + "#{condition}" + "#{affiliate_type}" + "#{affiliate_id}" )
+    uri = URI("https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch" + "#{param_string}" )
     response_json = Net::HTTP.get(uri)
     response_json = response_json.force_encoding("utf-8")
     response_data = JSON.parse(response_json)
