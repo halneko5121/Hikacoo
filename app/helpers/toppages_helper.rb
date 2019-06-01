@@ -92,7 +92,6 @@ module ToppagesHelper
     
     # なにかしらのエラーが出ていたら表示して return
     if response_data["error"] != nil
-      flash.now[:danger] = "#{response_data["error_description"]}"
       return array_items
     end
 
@@ -106,22 +105,11 @@ module ToppagesHelper
       array_items.push(item_value)
     end
 
-=begin
-    items = RakutenWebService::Ichiba::Item.search(keyword: search_word)
-    items.first(count).each do |item|
-      item_value = Hash.new
-      item_value[:image_url] = item["mediumImageUrls"][0]
-      item_value[:name] = item["itemName"]
-      item_value[:price] = item["itemPrice"]
-      item_value[:shop_url] = item["affiliateUrl"]
-      array_items.push(item_value)
-    end
-=end
-    
     return array_items
   end
 
   def search_amazon(keyword, count)
+
     init_amazon()
     res = Amazon::Ecs.item_search(
       keyword,
