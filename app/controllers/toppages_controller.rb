@@ -11,7 +11,7 @@ class ToppagesController < ApplicationController
   def search
 
     # 検索
-    keyword = params.require(:search_word).permit(:title)[:title]
+    keyword = params.require(:search_word).permit(:content)[:content]
 
     puts "keyword ======> #{keyword}"
     @items = search_rakuten(keyword, 10)
@@ -58,7 +58,7 @@ class ToppagesController < ApplicationController
   end
 
   def check_search_validate()
-    search_word = params.require(:search_word).permit(:title)[:title]
+    search_word = params.require(:search_word).permit(:content)[:content]
     if search_word == ""
       flash[:danger] = "検索ワードを入力してください"
       redirect_to root_url
