@@ -14,10 +14,10 @@ class ToppagesController < ApplicationController
     keyword = params.require(:search_word).permit(:content)[:content]
 
     puts "keyword ======> #{keyword}"
-    @items = search_rakuten(keyword, 10)
-    @items2 = scraping_search_amazon_site(keyword, 10)
-    update_item_database(Item, @items)
-    update_item_database(ComparisonItem, @items2)
+    @rakuten_item = search_rakuten(keyword, 1)
+    @amazon_item = scraping_search_amazon_site(keyword, 1)
+    update_item_database(Item, @rakuten_item)
+    update_item_database(ComparisonItem, @amazon_item)
   end
   
   def comparison
@@ -51,7 +51,8 @@ class ToppagesController < ApplicationController
       if database_name.find_by(name: item[:name]) == nil
         item_record = database_name.new(
           name: "#{item[:name]}", price: "#{item[:price]}",
-          image_url: "#{item[:image_url]}", shop_url: "#{item[:shop_url]}"
+          image_url: "#{item[:image_url]}", shop_url: "#{item[:shop_url]}",
+          sales_date: "#{item[:sales_date]}"
         )
         item_record.save
       end

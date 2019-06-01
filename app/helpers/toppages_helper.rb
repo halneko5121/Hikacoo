@@ -66,6 +66,7 @@ module ToppagesHelper
       item_value[:name]       = item["Item"]["title"]
       item_value[:price]      = "¥ " + item["Item"]["itemPrice"].to_s
       item_value[:shop_url]   = item["Item"]["itemUrl"]
+      item_value[:sales_date]   = item["Item"]["salesDate"]
       array_items.push(item_value)
     end
 
@@ -109,9 +110,16 @@ module ToppagesHelper
         node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |chiled_node|
           item_value[:price] = chiled_node.children.text 
         end
-        # Shop URL
-        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |chiled_node|
-          item_value[:shop_url] = base_url + chiled_node.attributes["href"].value
+        # Price
+        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |chiled_node|
+          item_value[:price] = chiled_node.children.text 
+        end
+        # Sales Date
+        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]").each do |chiled_node|
+          # 「発売日」を消したい
+          temp_value = chiled_node.children.text
+          temp_value[0, 5] = ''
+          item_value[:sales_date] = temp_value
         end
         array_items.push(item_value)
       end
