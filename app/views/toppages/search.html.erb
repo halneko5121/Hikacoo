@@ -1,10 +1,10 @@
 <h2 class="mt-4 pb-4 border-bottom">検索結果</h2>
 <div class="row">
-  <aside class="col-sm-6">
+  <aside class="col-lg-6">
     <h3 class="mt-4 pb-4 border-bottom">楽天ブックス</h3>
     <%= render 'toppages/search_result', {items: @rakuten_item, scope_name: "rakuten" } %>
   </aside>
-  <div class="col-sm-6">
+  <div class="col-lg-6">
     <h3 class="mt-4 pb-4 border-bottom">Amazon</h3>
     <%= render 'toppages/search_result', {items: @amazon_item, scope_name: "amazon" } %>
   </div>
