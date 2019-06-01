@@ -10,18 +10,31 @@ class ToppagesController < ApplicationController
   
   def search
 
-    # 何かしら入っていたら全削除
-    items = Item.all
-    if !items.empty?
-      Item.delete_all
-    end
-
     # 検索
     keyword = params.require(:search_word).permit(:title)[:title]
 
     puts "keyword ======> #{keyword}"
     @items = search_rakuten(keyword, 10)
-    @items.each do |item|
+    update_item_database(@items)
+  end
+  
+  def comparison
+    item_name = params[:title]
+    @rakuten_item = [Item.find_by(name: item_name)]
+    @amazon_item = scraping_search_amazon(item_name, 1)
+  end
+  
+  private
+  def update_item_database(update_items)
+  
+    # 何かしら入っていたら全削除
+    items = Item.all
+    if !items.empty?
+      Item.delete_all
+    end
+    
+    update_items.each do |item|
+  
       # 存在しなければレコード保存
       if Item.find_by(name: item[:name]) == nil
         item_record = Item.new(
@@ -32,14 +45,8 @@ class ToppagesController < ApplicationController
       end
     end
   end
+
   
-  def comparison
-    item_name = params[:title]
-    @rakuten_item = [Item.find_by(name: item_name)]
-    @amazon_item = scraping_search_amazon(item_name, 1)
-  end
-  
-  private
   def check_search_validate()
     search_word = params.require(:search_word).permit(:title)[:title]
     if search_word == ""
