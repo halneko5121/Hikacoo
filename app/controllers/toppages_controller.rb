@@ -75,5 +75,12 @@ class ToppagesController < ApplicationController
     trend_words = trend_words.shuffle
     @trend_word_first  = trend_words[0, 3]
     @trend_word_second = trend_words[4, 3]
+
+    @trend_word_count = 0
+    if @trend_word_second != nil
+      @trend_word_count = @trend_word_first.size + @trend_word_second.size
+    else
+      @trend_word_count = @trend_word_first.size
+    end
   end
 end
