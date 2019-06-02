@@ -120,7 +120,9 @@ module ToppagesHelper
           temp_value[0, 5] = ''
           item_value[:sales_date] = temp_value
         end
-        array_items.push(item_value)
+        if !item_value.empty?
+          array_items.push(item_value)
+        end
       end
     end
 
