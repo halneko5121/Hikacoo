@@ -3,12 +3,12 @@
 </div>
 <div class="input-group">
 </div>
-<%= form_with(url: search_path, scope: :search_word, local: true) do |f| %>
+<%= form_with(url: search_path, local: true) do |f| %>
   <div class="form-group input-group row">
     <% if @trend_word == nil %>
-      <%= f.text_field :content, class: "form-control" %>
+	    <input type="text" name="search_word[content]" class="form-control" placeholder="検索キーワード入力して下さい">
     <% else %>
-      <%= f.text_field :content, value: @trend_word, class: "form-control" %>
+	    <input type="text" name="search_word[content]" class="form-control" value="<%= @trend_word %>" placeholder="検索キーワード入力して下さい" >
     <% end %>
     <div class="input-group-append">
   		<button type="submit" class="btn btn-primary search_button"><i class="fas fa-search"></i></button>
