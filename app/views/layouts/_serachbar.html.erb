@@ -1,16 +1,20 @@
 <div class="mt-5 mb-5 text-center">
   <h2>商品価格を比較しましょう！</h2>
 </div>
+<div class="input-group">
+</div>
 <%= form_with(url: search_path, scope: :search_word, local: true) do |f| %>
-  <div class="form-group row">
+  <div class="form-group input-group row">
     <% if @trend_word == nil %>
       <%= f.text_field :content, class: "form-control" %>
     <% else %>
       <%= f.text_field :content, value: @trend_word, class: "form-control" %>
     <% end %>
-    <%= f.submit '検索', class: "btn btn-primary" %>
+    <div class="input-group-append">
+  		<button type="submit" class="btn btn-primary search_button"><i class="fas fa-search"></i></button>
+    </div>
   </div>
 <% end %>
-<div class="mt-1 pb-1 border-bottom border-dark">本日のトレンドワード（ランダムで<%= @trend_word_count %>個表示してます）</div>
+<div class="mt-1 pb-1 border-bottom border-dark font-default">本日のトレンドワード（ランダムで<%= @trend_word_count %>個表示してます）</div>
 <%= render 'layouts/trend_words', trend_words: @trend_word_first %>
 <%= render 'layouts/trend_words', trend_words: @trend_word_second %>
