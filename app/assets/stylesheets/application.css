@@ -18,6 +18,22 @@ body {
 	font-family: Arial, "メイリオ","Meiryo",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
+.wrapper{
+    min-height: 100vh;
+    position: relative;			/*相対位置*/
+    padding-bottom: 120px;		/*footerの高さ*/
+    box-sizing: border-box;		/*全て含めてmin-height:100vhに*/
+}
+
+footer {
+    width: 100%;
+    background-color: #89c7de;
+    color: #fff;
+    padding: 10px 0 0px;
+    position: absolute;	/*絶対位置*/
+    bottom: 0; 			/*下に固定*/
+}
+
 .search_button {
     min-width: 100px;
 }

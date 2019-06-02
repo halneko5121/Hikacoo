@@ -20,12 +20,17 @@
 
   <body>
     <%= render 'layouts/navbar' %>
-    <div class="container">
-      <%= render 'layouts/flash_messages' %>
-      <%= render 'layouts/search_description' %>
-      <%= render 'layouts/searchbar' %>
-      <%= render 'layouts/trend_word_list' %>
-      <%= yield %>
+    <div class="wrapper">
+      <div class="container">
+        <%= render 'layouts/flash_messages' %>
+        <%= render 'layouts/search_description' %>
+        <%= render 'layouts/searchbar' %>
+        <%= render 'layouts/trend_word_list' %>
+        <%= yield %>
+      </div>
+      <footer>
+        <%= render 'layouts/footer' %>
+      </footer>
     </div>
   </body>
 </html>
