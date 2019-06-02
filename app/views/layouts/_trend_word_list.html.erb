@@ -1,0 +1,3 @@
+<div class="mt-1 pb-1 border-bottom border-dark font-default">本日のトレンドワード（ランダムで<%= @trend_word_count %>個表示してます）</div>
+<%= render 'layouts/trend_words', trend_words: @trend_word_first %>
+<%= render 'layouts/trend_words', trend_words: @trend_word_second %>
