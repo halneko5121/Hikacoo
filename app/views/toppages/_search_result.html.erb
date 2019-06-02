@@ -1,5 +1,12 @@
 <% if items.empty? %>
-  <p>該当する商品は見つかりませんでした。<br>キーワードを変えてお試し下さい。</p>
+  <p>該当する商品は見つかりませんでした。</p>
+  <p>キーワードを変えてお試し下さい。</p>
+  <% if scope_name == "amazon" %>
+    <p><a href="https://www.amazon.co.jp/">Amazonで検索 <i class="fas fa-external-link-alt"></i></a></p>
+  <% elsif scope_name == "rakuten" %>
+    <p><a href="https://www.rakuten.co.jp/">楽天市場で検索 <i class="fas fa-external-link-alt"></i></a></p>
+    <p><a href="https://books.rakuten.co.jp/">楽天ブックスで検索 <i class="fas fa-external-link-alt"></i></a></p>
+  <% end %>
 <% else %>
   <% items.each do |item| %>
     <div class="container mt-4 mb-6 box">
