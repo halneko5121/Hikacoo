@@ -1,3 +1,7 @@
-<div class="mt-1 pb-1 border-bottom border-dark font-default">本日のトレンドワード（ランダムで<%= @trend_word_count %>個表示してます）</div>
+<div class="mt-1 pb-1 border-bottom border-dark font-default">
+  <a href="https://trends.google.co.jp/trends/trendingsearches/daily?geo=JP" target="_blank">本日のトレンドワード</a>
+  （ランダムで<%= @trend_word_count %>個表示してます）
+</div>
 <%= render 'layouts/trend_words', trend_words: @trend_word_first %>
 <%= render 'layouts/trend_words', trend_words: @trend_word_second %>
+
