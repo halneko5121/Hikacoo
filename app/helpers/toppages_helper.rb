@@ -115,13 +115,18 @@ module ToppagesHelper
         end
         # Sales Date
         node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]").each do |chiled_node|
-          puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-          p chiled_node
-          puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
           # 「発売日」を消したい
           temp_value = chiled_node.children.text
           temp_value[0, 5] = ''
           item_value[:sales_date] = temp_value
+        end
+        if item_value[:sales_date] == nil
+          node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]").each do |chiled_node|
+            # 「発売日」を消したい
+            temp_value = chiled_node.children.text
+            temp_value[0, 5] = ''
+            item_value[:sales_date] = temp_value
+          end
         end
         if !item_value.empty?
           array_items.push(item_value)
