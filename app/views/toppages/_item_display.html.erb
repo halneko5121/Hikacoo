@@ -19,7 +19,9 @@
           <p><%= item[:name] %></p>
           <p>発売日 : <%= item[:sales_date] %></p>
           <div class="col-sm-12 text-center children-bottom">
-            <p><font size="6" color="red"><%= item[:price] %>（税込）</font></p>
+            <% if item[:price] != "" %>
+              <p><font size="6" color="red"><%= item[:price] %>（税込）</font></p>
+            <% end %>
           </div>
         </div>
       </div>

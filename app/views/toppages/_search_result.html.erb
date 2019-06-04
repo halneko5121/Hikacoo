@@ -18,7 +18,9 @@
         <div class="col-sm-8 parent">
           <p><%= item[:name] %></p>
           <p>発売日 : <%= item[:sales_date] %></p>
-          <p><font color="red"><%= item[:price] %>（税込）</font></p>
+          <% if item[:price] != nil %>
+            <p><font color="red"><%= item[:price] %>（税込）</font></p>
+          <% end %>
           <div class="col-sm-12 children-bottom">
             <%= form_with(url: comparison_path, scope: scope_name, local: true) do |f| %>
               <%= f.hidden_field :name, :value => item[:name] %>
