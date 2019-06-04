@@ -17,7 +17,9 @@
         </aside>
         <div class="col-sm-8 parent">
           <p><%= item[:name] %></p>
-          <p>発売日 : <%= item[:sales_date] %></p>
+          <% if item[:sales_date] != "" %>
+            <p>発売日 : <%= item[:sales_date] %></p>
+          <% end %>
           <div class="col-sm-12 text-center children-bottom">
             <% if item[:price] != "" %>
               <p><font size="6" color="red"><%= item[:price] %>（税込）</font></p>
