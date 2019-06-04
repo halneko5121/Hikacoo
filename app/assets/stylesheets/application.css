@@ -51,6 +51,16 @@ footer {
 	box-shadow    : 0 0 0 8px #ffcc99;    /* 影を利用した外余白   */
 }
 
+.not-found-box {
+	padding       : 27px;                 /* 文字の位置合わせ     */
+	color         : white;                /* 文字色 */ 
+	background    : #C6B690;              /* BOXの背景色          */
+	border        : 3px dotted #ff0000;   /* 枠線の指定           */
+	border-radius : 4px;                  /* 角丸の指定           */
+	box-shadow    : 0 0 0 8px #C6B690;    /* 影を利用した外余白   */
+}
+
+
 .fix-height {
     min-height: 200px;
 }
