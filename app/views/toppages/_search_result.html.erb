@@ -22,6 +22,8 @@
           <% end %>
           <% if item[:price] != nil %>
             <p><font color="red"><%= item[:price] %>（税込）</font></p>
+          <% else %>
+            <p><font color="red">価格情報が見当たりませんでした。</font></p>
           <% end %>
           <div class="col-sm-12 children-bottom">
             <% if item[:price] != nil %>
