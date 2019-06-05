@@ -99,7 +99,7 @@ module ToppagesHelper
     count.times do |index|
       item_value = Hash.new
       
-      # isbn code
+      # jan code
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/div/div/ul/li[2]/a").each do |chiled_node|
         value_string = chiled_node.attributes["href"].value
         
