@@ -67,6 +67,8 @@ module ToppagesHelper
       item_value[:price]      = "¥ " + item["Item"]["itemPrice"].to_s(:delimited)
       item_value[:shop_url]   = item["Item"]["itemUrl"]
       item_value[:sales_date] = item["Item"]["salesDate"]
+      item_value[:isbn_code]  = item["Item"]["isbn"]
+      item_value[:jan_code]   = (item["Item"]["jan"] != "") ? item["Item"]["jan"] : item["Item"]["isbn"]
       array_items.push(item_value)
     end
 
@@ -96,37 +98,56 @@ module ToppagesHelper
     array_items = Array.new
     count.times do |index|
       item_value = Hash.new
-      doc.xpath("//*[@id='ama_res_in']").each do |node|
-        # Image URL
-        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/div/a/img").each do |chiled_node|
-          item_value[:image_url] = chiled_node.attributes["src"].value
+      
+      # isbn code
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/div/div/ul/li[2]/a").each do |chiled_node|
+        value_string = chiled_node.attributes["href"].value
+        
+        # 不要な文字列を削除する
+        value_array  = value_string.split(/(\?|\&)/)
+        delete_list = ["/compare/", "?", "&"]
+        value_array.delete_if do |str|
+          delete_list.include?(str)
         end
-        # Title
-        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |chiled_node|
-          item_value[:name] = chiled_node.children.text
-        end
-        # Price
-        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |chiled_node|
-          item_value[:price] = chiled_node.children.text 
-        end
-        # Sales Date
-        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]").each do |chiled_node|
+        
+        # 配列から「ean code」の要素だけ取得
+        ean_code = value_array.select { |x|
+          x[/(ean\=.*)/, 0]
+        }
+        ean_code = ean_code[0]
+        ean_code[0, 4] = ''
+        item_value[:jan_code] = ean_code
+      end
+    
+      # Image URL
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/div/a/img").each do |node|
+        item_value[:image_url] = node.attributes["src"].value
+      end
+      # Title
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |node|
+        item_value[:name] = node.children.text
+      end
+      # Price
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |node|
+        item_value[:price] = node.children.text 
+      end
+      # Sales Date
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]").each do |node|
+        # 「発売日」を消したい
+        temp_value = node.children.text
+        temp_value[0, 5] = ''
+        item_value[:sales_date] = temp_value
+      end
+      if item_value[:sales_date] == nil
+        doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]").each do |node|
           # 「発売日」を消したい
-          temp_value = chiled_node.children.text
+          temp_value = node.children.text
           temp_value[0, 5] = ''
           item_value[:sales_date] = temp_value
         end
-        if item_value[:sales_date] == nil
-          node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]").each do |chiled_node|
-            # 「発売日」を消したい
-            temp_value = chiled_node.children.text
-            temp_value[0, 5] = ''
-            item_value[:sales_date] = temp_value
-          end
-        end
-        if !item_value.empty?
-          array_items.push(item_value)
-        end
+      end
+      if !item_value.empty?
+        array_items.push(item_value)
       end
     end
 

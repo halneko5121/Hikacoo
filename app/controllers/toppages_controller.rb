@@ -52,7 +52,9 @@ class ToppagesController < ApplicationController
         item_record = database_name.new(
           name: "#{item[:name]}", price: "#{item[:price]}",
           image_url: "#{item[:image_url]}", shop_url: "#{item[:shop_url]}",
-          sales_date: "#{item[:sales_date]}"
+          sales_date: "#{item[:sales_date]}",
+          isbn_code: "#{item[:isbn_code]}",
+          jan_code: "#{item[:jan_code]}"
         )
         item_record.save
       end
