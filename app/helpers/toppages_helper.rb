@@ -109,10 +109,6 @@ module ToppagesHelper
         node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |chiled_node|
           item_value[:price] = chiled_node.children.text 
         end
-        # Price
-        node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |chiled_node|
-          item_value[:price] = chiled_node.children.text 
-        end
         # Sales Date
         node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]").each do |chiled_node|
           # 「発売日」を消したい
