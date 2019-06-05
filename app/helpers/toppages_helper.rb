@@ -131,6 +131,10 @@ module ToppagesHelper
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |node|
         item_value[:price] = node.children.text 
       end
+      # Shop URL
+      node.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |chiled_node|
+        item_value[:shop_url] = base_url + chiled_node.attributes["href"].value
+      end
       # Sales Date
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]").each do |node|
         # 「発売日」を消したい
