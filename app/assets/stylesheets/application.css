@@ -65,6 +65,13 @@ footer {
     min-height: 200px;
 }
 
+a.u-line {
+	text-decoration: underline;
+}
+a.u-line:hover {
+	text-decoration: none;
+}
+
 .parent {
 	position: relative;
 }
