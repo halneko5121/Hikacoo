@@ -81,8 +81,8 @@ module ToppagesHelper
     search_word = keyword.gsub(" ", "+")
 
     # URL設定
-    base_url    = "https://paboo.net/result/"
-    request_url = base_url + "?a_page=1&r_page=1&search=" + URI.encode(search_word)
+    base_url        = "https://paboo.net/result/"
+    request_url     = base_url + "?a_page=1&r_page=1&search=" + URI.encode(search_word)
 
     # スクレイピング先のURL
     charset = nil
@@ -133,7 +133,7 @@ module ToppagesHelper
       end
       # Shop URL
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |node|
-        item_value[:shop_url] = base_url + node.attributes["href"].value
+        item_value[:shop_url] = node.attributes["href"].value
       end
       # Sales Date
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]").each do |node|
