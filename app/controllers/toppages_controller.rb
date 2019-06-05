@@ -23,16 +23,18 @@ class ToppagesController < ApplicationController
   def comparison
 
     # 楽天商品から「比較」された
+    # jan code で比較する
     if params["rakuten"] != nil
       item_name = params["rakuten"][:name]
       @rakuten_item = [Item.find_by(name: item_name)]
-      @amazon_item = scraping_search_amazon_site(item_name, 1)
-      
+      @amazon_item = scraping_search_amazon_site(@rakuten_item[0].jan_code, 1)
+
     # amazonから「比較」された
+    # jan code で比較する
     elsif params["amazon"] != nil
       item_name = params["amazon"][:name]
-      @rakuten_item = search_rakuten(item_name, 1)
       @amazon_item = [ComparisonItem.find_by(name: item_name)]
+      @rakuten_item = search_rakuten(@amazon_item[0].jan_code, 1)
     end
   end
   
