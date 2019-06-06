@@ -144,13 +144,19 @@ module ToppagesHelper
       sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]"
       if !is_enable_salesrank
         price_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[2]/span"
-        sales_date_str = "//*[@id='ama_res_in']/article/dl/dd[2]"
+        sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]"
       end
 
       # Price
       doc.xpath("#{price_str}").each do |node|
         item_value[:price] = node.children.text 
       end
+
+      # Price が無い場合
+      if item_value[:price] == nil
+        sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[2]"
+      end
+
       # Sales Date
       doc.xpath("#{sales_date_str}").each do |node|
         # 「発売日」を消したい
