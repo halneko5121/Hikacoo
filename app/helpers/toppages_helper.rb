@@ -135,15 +135,20 @@ module ToppagesHelper
           is_enable_salesrank = false
         end
       end
+      puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      puts is_enable_salesrank
+      puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
       # Sales Lank が無い場合
+      price_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span"
       sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]"
       if !is_enable_salesrank
+        price_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[2]/span"
         sales_date_str = "//*[@id='ama_res_in']/article/dl/dd[2]"
       end
 
       # Price
-      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |node|
+      doc.xpath("#{price_str}").each do |node|
         item_value[:price] = node.children.text 
       end
       # Sales Date
