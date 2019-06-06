@@ -26,13 +26,13 @@
             <p><font color="red">価格情報が見当たりませんでした。</font></p>
           <% end %>
           <div class="col-sm-12 children">
-            <% if item[:price] != nil %>
+            <% if item[:price] == nil || item[:jan_code] == nil %>
+              <button type="button" class="col-sm-11 btn btn-primary" disabled="disabled">商品比較</button>
+            <% else %>
               <%= form_with(url: comparison_path, scope: scope_name, local: true) do |f| %>
                 <%= f.hidden_field :name, :value => item[:name] %>
                 <%= f.submit '商品比較', class: "col-sm-11 btn btn-primary" %>
               <% end %>
-            <% else %>
-              <button type="button" class="col-sm-11 btn btn-primary" disabled="disabled">商品比較</button>
             <% end %>
           </div>
         </div>
