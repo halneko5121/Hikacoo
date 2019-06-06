@@ -135,9 +135,6 @@ module ToppagesHelper
           is_enable_salesrank = false
         end
       end
-      puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      puts is_enable_salesrank
-      puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
       price_str       = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span"
       sales_date_str  = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]"
