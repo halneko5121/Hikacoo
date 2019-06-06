@@ -75,7 +75,7 @@ a.u-line:hover {
 .parent {
 	position: relative;
 }
-.children-bottom {
+.children {
 	position: absolute;
 	bottom: 0;
 }

@@ -25,7 +25,7 @@
           <% else %>
             <p><font color="red">価格情報が見当たりませんでした。</font></p>
           <% end %>
-          <div class="col-sm-12 children-bottom">
+          <div class="col-sm-12 children">
             <% if item[:price] != nil %>
               <%= form_with(url: comparison_path, scope: scope_name, local: true) do |f| %>
                 <%= f.hidden_field :name, :value => item[:name] %>
