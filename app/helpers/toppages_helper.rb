@@ -64,7 +64,7 @@ module ToppagesHelper
       item_value = Hash.new
       item_value[:image_url]  = item["Item"]["mediumImageUrl"]
       item_value[:name]       = item["Item"]["title"]
-      item_value[:price]      = "¥ " + item["Item"]["itemPrice"].to_s(:delimited)
+      item_value[:price]      = "\ " + item["Item"]["itemPrice"].to_s(:delimited)
       item_value[:shop_url]   = item["Item"]["itemUrl"]
       item_value[:sales_date] = item["Item"]["salesDate"]
       item_value[:isbn_code]  = item["Item"]["isbn"]
@@ -125,11 +125,25 @@ module ToppagesHelper
       end
       # Title / Shop URL
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |node|
-        item_value[:name]     = node.children.text
+        item_value[:name] = node.children.text
         item_value[:shop_url] = node.attributes["href"].value
       end
+      # Sales Lank
+      is_enable_salesrank = true
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[1]").each do |node|
+        if !node.children.text.include?("SalesRank")
+          is_enable_salesrank = false
+        end
+      end
+
+      # Sales Lank が無い場合
+      sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]"
+      if !is_enable_salesrank
+        sales_date_str = "//*[@id='ama_res_in']/article/dl/dd[2]"
+      end
+
       # Sales Date
-      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]").each do |node|
+      doc.xpath("#{sales_date_str}").each do |node|
         # 「発売日」を消したい
         temp_value = node.children.text
         temp_value[0, 5] = ''
