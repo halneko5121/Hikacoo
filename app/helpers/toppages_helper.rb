@@ -142,6 +142,10 @@ module ToppagesHelper
         sales_date_str = "//*[@id='ama_res_in']/article/dl/dd[2]"
       end
 
+      # Price
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |node|
+        item_value[:price] = node.children.text 
+      end
       # Sales Date
       doc.xpath("#{sales_date_str}").each do |node|
         # 「発売日」を消したい
@@ -156,10 +160,6 @@ module ToppagesHelper
           temp_value[0, 5] = ''
           item_value[:sales_date] = temp_value
         end
-      end
-      # Price
-      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |node|
-        item_value[:price] = node.children.text 
       end
       if !item_value.empty?
         array_items.push(item_value)
