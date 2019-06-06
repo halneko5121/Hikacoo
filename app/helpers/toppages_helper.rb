@@ -100,8 +100,8 @@ module ToppagesHelper
       item_value = Hash.new
       
       # jan code
-      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/div/div/ul/li[2]/a").each do |chiled_node|
-        value_string = chiled_node.attributes["href"].value
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/div/div/ul/li[2]/a").each do |node|
+        value_string = node.attributes["href"].value
         
         # 不要な文字列を削除する
         value_array  = value_string.split(/(\?|\&)/)
