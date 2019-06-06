@@ -139,9 +139,10 @@ module ToppagesHelper
       puts is_enable_salesrank
       puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-      # Sales Lank が無い場合
       price_str       = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span"
       sales_date_str  = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]"
+
+      # Sales Lank が無い場合
       if !is_enable_salesrank
         price_str      = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[2]/span"
         sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]"
@@ -163,14 +164,6 @@ module ToppagesHelper
         temp_value = node.children.text
         temp_value[0, 5] = ''
         item_value[:sales_date] = temp_value
-      end
-      if item_value[:sales_date] == nil
-        doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]").each do |node|
-          # 「発売日」を消したい
-          temp_value = node.children.text
-          temp_value[0, 5] = ''
-          item_value[:sales_date] = temp_value
-        end
       end
       if !item_value.empty?
         array_items.push(item_value)
