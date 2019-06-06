@@ -123,16 +123,9 @@ module ToppagesHelper
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/div/a/img").each do |node|
         item_value[:image_url] = node.attributes["src"].value
       end
-      # Title
+      # Title / Shop URL
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |node|
-        item_value[:name] = node.children.text
-      end
-      # Price
-      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |node|
-        item_value[:price] = node.children.text 
-      end
-      # Shop URL
-      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dt/a").each do |node|
+        item_value[:name]     = node.children.text
         item_value[:shop_url] = node.attributes["href"].value
       end
       # Sales Date
@@ -149,6 +142,10 @@ module ToppagesHelper
           temp_value[0, 5] = ''
           item_value[:sales_date] = temp_value
         end
+      end
+      # Price
+      doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span").each do |node|
+        item_value[:price] = node.children.text 
       end
       if !item_value.empty?
         array_items.push(item_value)
