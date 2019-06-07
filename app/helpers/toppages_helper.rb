@@ -129,33 +129,26 @@ module ToppagesHelper
         item_value[:shop_url] = node.attributes["href"].value
       end
       # Sales Lank
-      is_enable_salesrank = true
+      correct_index = 0
       doc.xpath("//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[1]").each do |node|
         if !node.children.text.include?("SalesRank")
-          is_enable_salesrank = false
+          correct_index += -1
         end
       end
-
-      price_str       = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]/span"
-      sales_date_str  = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[4]"
-
-      # Sales Lank が無い場合
-      if !is_enable_salesrank
-        price_str      = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[2]/span"
-        sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[3]"
-      end
-
+      
       # Price
+      price_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[#{3 + correct_index}]/span"
       doc.xpath("#{price_str}").each do |node|
         item_value[:price] = node.children.text 
       end
 
       # Price が無い場合
       if item_value[:price] == nil
-        sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[2]"
+        correct_index += -1
       end
 
       # Sales Date
+      sales_date_str = "//*[@id='ama_res_in']/article[#{index+1}]/dl/dd[#{4 + correct_index}]"
       doc.xpath("#{sales_date_str}").each do |node|
         # 「発売日」を消したい
         temp_value = node.children.text
