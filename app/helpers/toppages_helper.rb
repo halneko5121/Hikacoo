@@ -64,7 +64,7 @@ module ToppagesHelper
       item_value = Hash.new
       item_value[:image_url]  = item["Item"]["mediumImageUrl"]
       item_value[:name]       = item["Item"]["title"]
-      item_value[:price]      = "\ " + item["Item"]["itemPrice"].to_s(:delimited)
+      item_value[:price]      = "¥ " + item["Item"]["itemPrice"].to_s(:delimited)
       item_value[:shop_url]   = item["Item"]["itemUrl"]
       item_value[:sales_date] = item["Item"]["salesDate"]
       item_value[:isbn_code]  = item["Item"]["isbn"]
