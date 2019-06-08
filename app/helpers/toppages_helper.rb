@@ -39,9 +39,9 @@ module ToppagesHelper
     
     # パラメータ設定
     search_word     = URI.encode(keyword)
-    app_id          = "?applicationId=#{ENV['application_id']}"
+    app_id          = "?applicationId=#{ENV['R_APPLICATION_ID']}"
     query           = "&keyword=#{search_word}"
-    affiliate_id    = "&affiliate_id=#{ENV['affiliate_id']}"
+    affiliate_id    = "&affiliate_id=#{ENV['R_AFFILIATE_ID']}"
     base_url        = "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404"
     param_string    = "#{app_id}" + "#{query}" + "#{affiliate_id}"
 
