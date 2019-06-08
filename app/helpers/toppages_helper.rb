@@ -39,10 +39,9 @@ module ToppagesHelper
     
     # パラメータ設定
     search_word     = URI.encode(keyword)
-    rakuten_ecs_yml = YAML.load_file("#{Rails.root}/config/rakuten_ecs.yml")
-    app_id          = "?applicationId=#{rakuten_ecs_yml['application_id']}"
+    app_id          = "?applicationId=#{ENV['application_id']}"
     query           = "&keyword=#{search_word}"
-    affiliate_id    = "&affiliate_id=#{rakuten_ecs_yml['affiliate_id']}"
+    affiliate_id    = "&affiliate_id=#{ENV['affiliate_id']}"
     base_url        = "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404"
     param_string    = "#{app_id}" + "#{query}" + "#{affiliate_id}"
 
