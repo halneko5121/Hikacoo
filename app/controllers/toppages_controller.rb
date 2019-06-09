@@ -12,27 +12,31 @@ class ToppagesController < ApplicationController
 
     # 検索
     @keyword = params.require(:search_word).permit(:content)[:content]
+    @category = params.require(:category).permit(:content)[:content]
 
     puts "keyword ======> #{@keyword}"
+    puts "category ======> #{@category}"
     @rakuten_item = search_rakuten(@keyword, 10)
-    @amazon_item = scraping_search_amazon_site(@keyword, 10)
+    @amazon_item = scraping_search_amazon_site(@keyword, @category, 10)
     update_item_database(Item, @rakuten_item)
     update_item_database(ComparisonItem, @amazon_item)
   end
   
   def comparison
-
+    
     # 楽天商品から「比較」された
     # jan code で比較する
     if params["rakuten"] != nil
       item_name = params["rakuten"][:name]
+      category  = params["rakuten"][:category]
       @rakuten_item = [Item.find_by(name: item_name)]
-      @amazon_item = scraping_search_amazon_site(@rakuten_item[0].jan_code, 1)
+      @amazon_item = scraping_search_amazon_site(@rakuten_item[0].jan_code, category, 1)
 
     # amazonから「比較」された
     # jan code で比較する
     elsif params["amazon"] != nil
       item_name = params["amazon"][:name]
+      category  = params["amazon"][:category]
       @amazon_item = [ComparisonItem.find_by(name: item_name)]
       @rakuten_item = search_rakuten(@amazon_item[0].jan_code, 1)
     end

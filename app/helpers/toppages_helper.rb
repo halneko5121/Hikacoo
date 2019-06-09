@@ -74,14 +74,16 @@ module ToppagesHelper
     return array_items
   end
 
-  def scraping_search_amazon_site(keyword, count)
+  def scraping_search_amazon_site(keyword, category, count)
 
     # 検索キーワードは空白を「+」に変換する
-    search_word = keyword.gsub(" ", "+")
+    keyword = keyword.gsub(" ", "+")
 
     # URL設定
     base_url        = "https://paboo.net/result/"
-    request_url     = base_url + "?a_page=1&r_page=1&search=" + URI.encode(search_word)
+    search_word     = URI.encode(keyword)
+    category_str    = "&category=#{category}"
+    request_url     = base_url + "?a_page=1&r_page=1&search=" + "#{search_word}" + "#{category_str}"
 
     # スクレイピング先のURL
     charset = nil

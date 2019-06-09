@@ -31,12 +31,14 @@ module PriceComparison
     config.generators.system_tests = nil
     
     config.before_configuration do
+      
       # アプリIDなどの情報を読み込み
       env_file = Rails.root.join("config", 'rakuten_ecs.yml').to_s
-
+      
       # 環境変数に設定
       if File.exists?(env_file)
-        YAML.load_file(env_file)[Rails.env].each do |key, value|
+        rakuten_yml = YAML.load_file(env_file)
+        rakuten_yml.each do |key, value|
           ENV[key.to_s] = value
         end
       end

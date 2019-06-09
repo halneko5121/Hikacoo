@@ -2,10 +2,10 @@
 <div class="row">
   <aside class="col-lg-6">
     <h4 class="mt-4 pb-2 border-bottom border-danger">楽天ブックス</h4>
-    <%= render 'toppages/search_result', {items: @rakuten_item, scope_name: "rakuten" } %>
+    <%= render 'toppages/search_result', {items: @rakuten_item, scope_name: "rakuten", category: @category } %>
   </aside>
   <div class="col-lg-6">
     <h4 class="mt-4 pb-2 border-bottom border-warning">Amazon</h4>
-    <%= render 'toppages/search_result', {items: @amazon_item, scope_name: "amazon" } %>
+    <%= render 'toppages/search_result', {items: @amazon_item, scope_name: "amazon", category: @category } %>
   </div>
 </div>
