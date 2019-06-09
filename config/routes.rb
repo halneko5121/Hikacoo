@@ -3,9 +3,6 @@ Rails.application.routes.draw do
 
   post "/", to: "toppages#index"
 
-  post "search", to: "toppages#search"
-  get "search", to: "toppages#index"
-
-  post "comparison", to: "toppages#comparison"
-  get "comparison", to: "toppages#index"
+  get "search", to: "toppages#search"
+  get "comparison", to: "toppages#comparison"
 end

@@ -29,7 +29,7 @@
             <% if item[:price] == nil || item[:jan_code] == nil %>
               <button type="button" class="col-sm-11 btn btn-primary" disabled="disabled">商品比較</button>
             <% else %>
-              <%= form_with(url: comparison_path, scope: scope_name, local: true) do |f| %>
+              <%= form_with(url: comparison_path, scope: scope_name, method: :get, local: true) do |f| %>
                 <%= f.hidden_field :name, :value => item[:name] %>
                 <%= f.hidden_field :category, :value => category %>
                 <%= f.submit '商品比較', class: "col-sm-11 btn btn-primary" %>
