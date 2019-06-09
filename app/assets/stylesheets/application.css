@@ -85,3 +85,11 @@ a.u-line:hover {
 	position: absolute;
 	bottom: 0;
 }
+
+.multiline-text {
+  display: -webkit-box;          /* line-clamp を有効にするために指定する */
+  -webkit-box-orient: vertical;  /* line-clamp を有効にするために指定する */
+  -webkit-line-clamp: 3;         /* コレで折り返し表示する行数を指定する・ココでは3行分表示させる */
+  overflow: hidden;              /* ボックスからはみ出た分を非表示にする */
+  width: 100%;                   /* 必ずしも必須ではないが overflow を効かせるために設定する */
+}

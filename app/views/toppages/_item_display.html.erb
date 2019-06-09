@@ -16,7 +16,7 @@
           <img class="rounded fix-width" src="<%= item[:image_url] %>" alt="">
         </aside>
         <div class="col-sm-8 parent">
-          <p><a href="<%= item[:shop_url] %>" target="_blank" class="text-dark u-line"><%= item[:name] %></a></p>
+          <p><a href="<%= item[:shop_url] %>" target="_blank" class="text-dark u-line multiline-text"><%= item[:name] %></a></p>
           <% if item[:sales_date] != "" %>
             <p>発売日 : <%= item[:sales_date] %></p>
           <% end %>
