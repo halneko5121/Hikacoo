@@ -64,7 +64,7 @@ module ToppagesHelper
 
     array_items = Array.new
     
-    # なにかしらのエラーが出ていたら表示して return
+    # なにかしらのエラーが出ていたら return
     if response_data["error"] != nil
       return array_items
     end
