@@ -3,20 +3,13 @@
     <div class="input-group-prepend">
       <select class="form-control" id="category" name="category[content]">
         <% if @category == nil %>
-          <option value="all" selected="selected">すべてのカテゴリ</option>
-          <option value="books">本</option>
-          <option value="w_books">洋書</option>
-          <option value="magazine">雑誌</option>
-          <option value="music">ミュージック</option>
-          <option value="game">ゲーム</option>
-          <option value="dvd">DVD</option>
-          <option value="pc">PCソフト/周辺機器</option>
-          <option value="electronics">家電</option>
-          <option value="kitchen">キッチン用品</option>
-          <option value="stationary">文房具</option>
-          <option value="sports">スポーツ・アウトドア</option>
-          <option value="hobby">おもちゃ・ホビー</option>
-          <option value="watch">時計</option>
+          <% Genre.all.each do |record| %>
+            <% if record.code == "all" %>
+              <option value="<%= record.code %>" selected="selected"><%= record.name %></option>
+            <% else %>
+              <option value="<%= record.code %>"><%= record.name %></option>
+            <% end %>
+          <% end %>
         <% else %>
           <% Genre.all.each do |record| %>
             <% if record.code == @category %>
