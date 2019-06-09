@@ -66,7 +66,8 @@ footer {
 }
 
 .fix-width {
-    max-width: 150px;
+    max-width: 128px;
+    width: 100%;
 }
 
 
