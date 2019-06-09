@@ -72,7 +72,7 @@ module ToppagesHelper
     items = response_data["Items"]
     items.first(count).each do |item|
       item_value = Hash.new
-      item_value[:image_url]  = item["Item"]["mediumImageUrl"]
+      item_value[:image_url]  = item["Item"]["largeImageUrl"]
       item_value[:name]       = item["Item"]["title"]
       item_value[:price]      = "¥ " + item["Item"]["itemPrice"].to_s(:delimited)
       item_value[:shop_url]   = item["Item"]["itemUrl"]

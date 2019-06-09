@@ -65,6 +65,11 @@ footer {
     min-height: 200px;
 }
 
+.fix-width {
+    max-width: 150px;
+}
+
+
 a.u-line {
 	text-decoration: underline;
 }
