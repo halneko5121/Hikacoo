@@ -16,7 +16,7 @@ class ToppagesController < ApplicationController
 
     puts "keyword ======> #{@keyword}"
     puts "category ======> #{@category}"
-    @rakuten_item = search_rakuten(@keyword, 10)
+    @rakuten_item = search_rakuten(@keyword, @category, 10)
     @amazon_item = scraping_search_amazon_site(@keyword, @category, 10)
     update_item_database(Item, @rakuten_item)
     update_item_database(ComparisonItem, @amazon_item)

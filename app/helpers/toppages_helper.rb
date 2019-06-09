@@ -35,15 +35,26 @@ module ToppagesHelper
     return trend_word_array
   end
 
-  def search_rakuten(keyword, count)
+  def search_rakuten(keyword, category, count)
+
+    rakuten_books_category = search_rakuten_books_category(category)
+    if rakuten_books_category != ""
+      return search_rakuten_books(keyword, rakuten_books_category, count)
+    else 
+      return search_rakuten_books(keyword, "000", count)
+    end
+  end
+
+  def search_rakuten_books(keyword, category, count)
     
     # パラメータ設定
     search_word     = URI.encode(keyword)
     app_id          = "?applicationId=#{ENV['R_APPLICATION_ID']}"
     query           = "&keyword=#{search_word}"
     affiliate_id    = "&affiliate_id=#{ENV['R_AFFILIATE_ID']}"
+    genre_id        = "&booksGenreId=#{category}"
     base_url        = "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404"
-    param_string    = "#{app_id}" + "#{query}" + "#{affiliate_id}"
+    param_string    = "#{app_id}" + "#{query}" + "#{affiliate_id}" + "#{genre_id}"
 
     # リクエスト送信
     uri = URI("#{base_url}" + "#{param_string}")
@@ -162,5 +173,28 @@ module ToppagesHelper
     end
 
     return array_items
+  end
+  
+  private
+  def search_rakuten_books_category(category)
+    rakuten_books_categories = {
+      "books"    => "001",    # 本 
+      "w_books"  => "005",    # 洋書
+      "magazine" => "007",    # 雑誌
+      "music"    => "002",    # 音楽
+      "game"     => "006",    # ゲーム
+      "dvd"      => "003",    # DVD
+      "pc"       => "004",    # PCソフト/周辺機器
+    }
+    
+    # 楽天books に該当するカテゴリかどうか
+    rakuten_books_category = ""
+    rakuten_books_categories.each do |key, value|
+      if category == key
+        rakuten_books_category = value
+      end
+    end
+
+    return rakuten_books_category
   end
 end
