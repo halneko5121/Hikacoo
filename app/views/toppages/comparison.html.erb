@@ -1,7 +1,11 @@
 <h4 class="mt-4 pb-3 bg-warning text-white rounded-pill p-3">商品比較</h4>
 <div class="row">
   <aside class="col-lg-6">
-    <h4 class="mt-4 pb-2 border-bottom border-danger">楽天ブックス</h4>
+    <% if @is_rakuten_books %>
+      <h4 class="mt-4 pb-2 border-bottom border-danger">楽天ブックス</h4>
+    <% else %>
+      <h4 class="mt-4 pb-2 border-bottom border-danger">楽天市場</h4>
+    <% end %>
     <%= render 'toppages/item_display', {items: @rakuten_item, scope_name: "rakuten" } %>
   </aside>
   <div class="col-lg-6">
