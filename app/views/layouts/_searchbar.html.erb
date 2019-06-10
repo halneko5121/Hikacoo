@@ -3,7 +3,7 @@
     <div class="input-group-prepend">
       <select class="form-control" id="category" name="category[content]">
         <% if @category == nil %>
-          <% Category.all.each do |record| %>
+          <% @category_data.all.each do |record| %>
             <% if record.code == "all" %>
               <option value="<%= record.code %>" selected="selected"><%= record.name %></option>
             <% else %>
@@ -11,7 +11,7 @@
             <% end %>
           <% end %>
         <% else %>
-          <% Category.all.each do |record| %>
+          <% @category_data.all.each do |record| %>
             <% if record.code == @category %>
               <option value="<%= record.code %>" selected="selected"><%= record.name %></option>
             <% else %>

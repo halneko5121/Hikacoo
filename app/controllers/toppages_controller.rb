@@ -1,6 +1,7 @@
 class ToppagesController < ApplicationController
   before_action :check_search_validate, only: [:search]
   before_action :update_trend_words, only: [:index, :search, :comparison]
+  before_action :get_category_data, only: [:index, :search, :comparison]
 
   include ToppagesHelper
   
@@ -95,5 +96,9 @@ class ToppagesController < ApplicationController
     else
       @trend_word_count = @trend_word_first.size
     end
+  end
+  
+  def get_category_data
+    @category_data = Category.all
   end
 end
