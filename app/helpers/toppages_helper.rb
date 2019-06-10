@@ -105,8 +105,9 @@ module ToppagesHelper
     query           = "&keyword=#{search_word}"
     affiliate_id    = "&affiliateId=#{ENV['R_AFFILIATE_ID']}"
     genre_id        = "&genreId=#{category}"
+    field           = "&field=0"
     base_url        = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706"
-    param_string    = "#{app_id}" + "#{query}" + "#{affiliate_id}" + "#{genre_id}"
+    param_string    = "#{app_id}" + "#{query}" + "#{affiliate_id}" + "#{genre_id}" + "#{field}"
 
     # リクエスト送信
     uri = URI("#{base_url}" + "#{param_string}")
