@@ -64,8 +64,9 @@ module ToppagesHelper
     query           = "&keyword=#{search_word}"
     affiliate_id    = "&affiliate_id=#{ENV['R_AFFILIATE_ID']}"
     genre_id        = "&booksGenreId=#{category}"
+    field           = "&field=0"
     base_url        = "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404"
-    param_string    = "#{app_id}" + "#{query}" + "#{affiliate_id}" + "#{genre_id}"
+    param_string    = "#{app_id}" + "#{query}" + "#{affiliate_id}" + "#{genre_id}" + "#{field}"
 
     # リクエスト送信
     uri = URI("#{base_url}" + "#{param_string}")
@@ -234,12 +235,11 @@ module ToppagesHelper
       "books"    => "001",    # 本 
       "w_books"  => "005",    # 洋書
       "magazine" => "007",    # 雑誌
-      "music"    => "002",    # 音楽
+      "music"    => "002",    # 音楽（CD）
       "game"     => "006",    # ゲーム
-      "dvd"      => "003",    # DVD
-      "pc"       => "004",    # PCソフト/周辺機器
+      "dvd"      => "003",    # DVD（DVD・ブルーレイ）
     }
-    
+
     # 楽天books に該当するカテゴリかどうか
     rakuten_books_category = ""
     rakuten_books_categories.each do |key, value|
