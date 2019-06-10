@@ -1,0 +1,7 @@
+<% category_data.all.each do |record| %>
+  <% if record.code == check_code %>
+    <option value="<%= record.code %>" selected="selected"><%= record.name %></option>
+  <% else %>
+    <option value="<%= record.code %>"><%= record.name %></option>
+  <% end %>
+<% end %>

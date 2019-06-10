@@ -3,21 +3,9 @@
     <div class="input-group-prepend">
       <select class="form-control" id="category" name="category[content]">
         <% if @category == nil %>
-          <% @category_data.all.each do |record| %>
-            <% if record.code == "all" %>
-              <option value="<%= record.code %>" selected="selected"><%= record.name %></option>
-            <% else %>
-              <option value="<%= record.code %>"><%= record.name %></option>
-            <% end %>
-          <% end %>
+          <%= render 'layouts/category_list', {category_data: @category_data, check_code: "all" } %>
         <% else %>
-          <% @category_data.all.each do |record| %>
-            <% if record.code == @category %>
-              <option value="<%= record.code %>" selected="selected"><%= record.name %></option>
-            <% else %>
-              <option value="<%= record.code %>"><%= record.name %></option>
-            <% end %>
-          <% end %>
+          <%= render 'layouts/category_list', {category_data: @category_data, check_code: @category } %>
         <% end %>
       </select>
     </div>
