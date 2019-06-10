@@ -11,11 +11,13 @@ class ToppagesController < ApplicationController
   def search
 
     # 検索
-    @keyword = params.require(:search_word).permit(:content)[:content]
-    @category = params.require(:category).permit(:content)[:content]
+    @keyword      = params.require(:search_word).permit(:content)[:content]
+    @category     = params.require(:category).permit(:content)[:content]
+    record        = Category.find_by(code: @category)
+    @category_name= record.name
 
     puts "keyword ======> #{@keyword}"
-    puts "category ======> #{@category}"
+    puts "category ======> #{@category}（#{@category_name}）"
     @is_rakuten_books = is_rakuten_books_search(@category)
     @rakuten_item = search_rakuten(@keyword, @category, 10)
     @amazon_item = scraping_search_amazon_site(@keyword, @category, 10)
