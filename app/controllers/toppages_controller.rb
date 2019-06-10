@@ -3,8 +3,6 @@ class ToppagesController < ApplicationController
   before_action :update_trend_words, only: [:index, :search, :comparison]
   before_action :get_category_data, only: [:index, :search, :comparison]
 
-  include ToppagesHelper
-  
   def index
     @trend_word = params[:commit]
   end
@@ -19,9 +17,9 @@ class ToppagesController < ApplicationController
 
     puts "keyword ======> #{@keyword}"
     puts "category ======> #{@category}（#{@category_name}）"
-    @is_rakuten_books = is_rakuten_books_search(@category)
-    @rakuten_item = search_rakuten(@keyword, @category, 10)
-    @amazon_item = scraping_search_amazon_site(@keyword, @category, 10)
+    @is_rakuten_books = Utils::RakutenApiUtil.is_rakuten_books_search(@category)
+    @rakuten_item = Utils::RakutenApiUtil.search_rakuten(@keyword, @category, 10)
+    @amazon_item = Utils::AmazonApiUtil.scraping_search_amazon_site(@keyword, @category, 10)
     update_item_database(Item, @rakuten_item)
     update_item_database(ComparisonItem, @amazon_item)
   end
@@ -34,8 +32,8 @@ class ToppagesController < ApplicationController
       item_name = params["rakuten"][:name]
       category  = params["rakuten"][:category]
       @rakuten_item = [Item.find_by(name: item_name)]
-      @amazon_item = scraping_search_amazon_site(@rakuten_item[0].jan_code, category, 1)
-      @is_rakuten_books = is_rakuten_books_search(category)
+      @amazon_item = Utils::AmazonApiUtil.scraping_search_amazon_site(@rakuten_item[0].jan_code, category, 1)
+      @is_rakuten_books = Utils::RakutenApiUtil.is_rakuten_books_search(category)
 
     # amazonから「比較」された
     # jan code で比較する
@@ -43,8 +41,8 @@ class ToppagesController < ApplicationController
       item_name = params["amazon"][:name]
       category  = params["amazon"][:category]
       @amazon_item = [ComparisonItem.find_by(name: item_name)]
-      @rakuten_item = search_rakuten(@amazon_item[0].jan_code, 1)
-      @is_rakuten_books = is_rakuten_books_search(category)
+      @rakuten_item = Utils::RakutenApiUtil.search_rakuten(@amazon_item[0].jan_code, 1)
+      @is_rakuten_books = Utils::RakutenApiUtil.is_rakuten_books_search(category)
     end
   end
   
@@ -85,7 +83,7 @@ class ToppagesController < ApplicationController
   def update_trend_words
 
     # 中身をシャッフルして格納
-    trend_words = search_google_trand_word()
+    trend_words = Utils::TrendwordUtil.search_trand_word()
     trend_words = trend_words.shuffle
     @trend_word_first  = trend_words[0, 3]
     @trend_word_second = trend_words[4, 3]

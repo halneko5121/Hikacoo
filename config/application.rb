@@ -30,6 +30,9 @@ module PriceComparison
     # Don't generate system test files.
     config.generators.system_tests = nil
     
+    # [lib]以下を読み込み
+    config.paths.add 'lib', eager_load: true
+
     config.before_configuration do
       
       # アプリIDなどの情報を読み込み
