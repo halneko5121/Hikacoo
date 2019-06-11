@@ -7,6 +7,7 @@
       <h4 class="mt-4 pb-2 border-bottom border-danger">楽天市場</h4>
     <% end %>
     <%= render 'toppages/search_result', {items: @rakuten_item, scope_name: "rakuten", category: @category } %>
+    <%= paginate @rakuten_item %>
   </aside>
   <div class="col-lg-6">
     <h4 class="mt-4 pb-2 border-bottom border-warning">Amazon</h4>
