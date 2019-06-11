@@ -85,8 +85,13 @@ class ToppagesController < ApplicationController
     # 中身をシャッフルして格納
     trend_words = Utils::TrendwordUtil.search_trand_word()
     trend_words = trend_words.shuffle
+
+    puts  "---------------------------"
+    p  trend_words
+    puts  "---------------------------"
+
     @trend_word_first  = trend_words[0, 3]
-    @trend_word_second = trend_words[4, 3]
+    @trend_word_second = trend_words[3, 3]
 
     @trend_word_count = 0
     if @trend_word_second != nil
