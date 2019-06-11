@@ -11,5 +11,6 @@
   <div class="col-lg-6">
     <h4 class="mt-4 pb-2 border-bottom border-warning">Amazon</h4>
     <%= render 'toppages/search_result', {items: @amazon_item, scope_name: "amazon", category: @category } %>
+    <%= paginate @amazon_item %>
   </div>
 </div>

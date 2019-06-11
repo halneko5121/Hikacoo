@@ -60,6 +60,8 @@ gem "amazon-ecs"
 
 gem 'nokogiri'
 
+gem 'kaminari'
+
 gem 'pry-byebug', group: :development
 
 group :production do

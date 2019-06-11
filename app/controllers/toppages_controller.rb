@@ -15,11 +15,18 @@ class ToppagesController < ApplicationController
     record        = Category.find_by(code: @category)
     @category_name= record.name
 
+    # 検索結果取得
     puts "keyword ======> #{@keyword}"
     puts "category ======> #{@category}（#{@category_name}）"
     @is_rakuten_books = Utils::RakutenApiUtil.is_rakuten_books_search(@category)
-    @rakuten_item = Utils::RakutenApiUtil.search_rakuten(@keyword, @category, 10)
-    @amazon_item = Utils::AmazonApiUtil.scraping_search_amazon_site(@keyword, @category, 10)
+    @rakuten_item = Utils::RakutenApiUtil.search_rakuten(@keyword, @category, 30)
+    @amazon_item = Utils::AmazonApiUtil.scraping_search_amazon_site(@keyword, @category, 30)
+
+    # ページネーション対応
+    @rakuten_item = Kaminari.paginate_array(@rakuten_item).page(params[:page]).per(10)
+    @amazon_item = Kaminari.paginate_array(@amazon_item).page(params[:page]).per(10)
+
+    # モデル更新
     update_item_database(Item, @rakuten_item)
     update_item_database(ComparisonItem, @amazon_item)
   end
